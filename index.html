@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ilk uchrashuvimiz 💗 — Secret Quiz</title>
+  <style>
+    :root{
+      --pink:#ff5fa2; --pink2:#ff8fc3; --lav:#c4b5fd; --text:#351833;
+      --glass:rgba(255,255,255,.74); --shadow:0 22px 60px rgba(164,50,112,.18);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);overflow:hidden;
+      background:radial-gradient(circle at 15% 20%,#ffe8f2 0 18%,transparent 35%),radial-gradient(circle at 85% 80%,#eee9ff 0 18%,transparent 35%),linear-gradient(135deg,#fff7fb,#f7f1ff 48%,#fff7fb)}
+    .bg-heart{position:fixed;font-size:22px;opacity:.22;animation:float 9s linear infinite;pointer-events:none}
+    @keyframes float{from{transform:translateY(110vh) rotate(0)}to{transform:translateY(-15vh) rotate(360deg)}}
+    .app{width:min(900px,92vw);height:min(760px,92vh);margin:4vh auto;position:relative}
+    .card{width:100%;height:100%;background:var(--glass);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.9);border-radius:34px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .top{padding:22px 28px 0;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-weight:900;letter-spacing:.3px}.brand span{color:var(--pink)}
+    .progress{width:210px;height:9px;background:#f1ddea;border-radius:99px;overflow:hidden}.bar{height:100%;width:20%;background:linear-gradient(90deg,var(--pink),#b27cff);border-radius:99px;transition:.45s}
+    .page{display:none;height:calc(100% - 72px);padding:30px 28px 32px;position:relative}.page.active{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:pageIn .45s ease}
+    @keyframes pageIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+    .eyebrow{font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#a65a87;margin-bottom:8px}
+    h1{font-size:clamp(29px,5vw,50px);margin:0 0 12px;line-height:1.08}.sub{max-width:650px;font-size:17px;line-height:1.6;color:#6a4f66;margin:0 auto 26px}
+    .name{color:var(--pink)}
+    .avatar{width:104px;height:104px;border-radius:32px;display:grid;place-items:center;font-size:56px;background:linear-gradient(135deg,#fff,#ffe1ef);box-shadow:0 14px 30px rgba(255,95,162,.18);margin-bottom:18px;animation:bob 2.8s ease-in-out infinite}
+    @keyframes bob{50%{transform:translateY(-6px) rotate(2deg)}}
+    .choices{width:min(620px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative}
+    .btn{border:0;border-radius:20px;padding:17px 16px;font-size:16px;font-weight:800;color:#4a2741;background:#fff;box-shadow:0 10px 24px rgba(97,38,87,.09);cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(97,38,87,.14)}
+    .btn.correct{background:#e6fff0!important;outline:3px solid #53d78c;animation:good .55s}.btn.wrong{background:#fff0f3!important;outline:3px solid #ff667f;animation:shake .42s}
+    @keyframes good{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+    @keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+    .next{margin-top:18px;padding:14px 24px;border:0;border-radius:17px;background:linear-gradient(135deg,var(--pink),#b76bff);color:white;font-weight:900;cursor:pointer;box-shadow:0 12px 22px rgba(255,95,162,.25);display:none}
+    .next.show{display:inline-block;animation:pageIn .35s}
+    .error{position:absolute;left:50%;top:16px;transform:translate(-50%,-20px);opacity:0;background:#2b1620;color:#fff0f4;padding:11px 15px;border-radius:15px;font-size:14px;font-weight:800;pointer-events:none;white-space:nowrap;transition:.25s;z-index:30}
+    .error.show{opacity:1;transform:translate(-50%,0)}
+    .wrong-zone{width:min(620px,100%);min-height:250px;position:relative;display:flex;align-items:center;justify-content:center}
+    .wrong-zone .btn{position:absolute;width:190px}
+    .final .heart{font-size:76px;animation:pulse 1.2s infinite}
+    @keyframes pulse{50%{transform:scale(1.12)}}
+    .sparkle{position:fixed;pointer-events:none;font-size:24px;animation:pop .9s ease forwards;z-index:100}
+    @keyframes pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(0)}25%{opacity:1}100%{opacity:0;transform:translate(-50%,-150px) scale(1.5) rotate(180deg)}}
+    .tiny{font-size:13px;color:#8c7087;margin-top:10px}
+    @media (max-width:650px){.app{height:94vh;margin:3vh auto}.choices{grid-template-columns:1fr}.page{padding:20px 18px}.progress{width:140px}.wrong-zone .btn{width:150px;font-size:14px}}
+  </style>
+</head>
+<body>
+  <div id="floaters"></div>
+  <div class="app">
+    <div class="card">
+      <div class="top"><div class="brand">Ilk uchrashuvimiz <span>♥</span> Secret Quiz</div><div class="progress"><div id="bar" class="bar"></div></div></div>
+      <div id="error" class="error">SYSTEM ERROR 😭</div>
+
+      <section class="page active" data-page="1">
+        <div class="avatar">💗</div><div class="eyebrow">1 / 5</div>
+        <h1>Birinchi marta ko‘rishganimizda <span class="name">menda</span> qanday taassurot qoldi? 😏</h1>
+        <p class="sub">Diqqat! Bu test birinchi uchrashuvimizdagi kayfiyatni tekshiradi. Eng samimiy javobni tanla 💗</p>
+        <div class="choices">
+          <button class="btn" data-correct="true">Yoqimli taassurot qoldirding 😊</button>
+          <button class="btn wrongy">Biroz hayron bo‘ldim 🤔</button>
+          <button class="btn wrongy">Hali tushunmadim 😅</button>
+        </div>
+        <p class="tiny">Birinchi taassurotni ortga qaytarib bo‘lmaydi 👀</p>
+      </section>
+
+      <section class="page" data-page="2">
+        <div class="avatar">📸</div><div class="eyebrow">2 / 5</div>
+        <h1>Birinchi uchrashuvdan keyin <span class="name">yana gaplashishni</span> xohlaysizmi? 💬</h1>
+        <p class="sub">Bu savolda yurakning signalini tekshiramiz. Faqat bitta variant keyingi bosqichga olib o‘tadi 💞</p>
+        <div class="choices">
+          <button class="btn" data-correct="true">Ha, albatta 💘</button>
+          <button class="btn wrongy">Hali o‘ylab ko‘raman 🤭</button>
+          <button class="btn wrongy">Faqat do‘stona 😶</button>
+        </div>
+      </section>
+
+      <section class="page" data-page="3">
+        <div class="avatar">🌷</div><div class="eyebrow">3 / 5</div>
+        <h1>Keyingi uchrashuv uchun <span class="name">qaysi variant</span> yoqadi? 🚶‍♀️</h1>
+        <p class="sub">Birinchi uchrashuvdan keyingi kichik reja. Eng yoqimli variantni topamiz... 👀</p>
+        <div class="choices">
+          <button class="btn wrongy">Keyinroq ko‘ramiz 😅</button>
+          <button class="btn wrongy">Hali erta 🤔</button>
+          <button class="btn" data-correct="true">Yana uchrashishga qarshi emasman 💞</button>
+        </div>
+      </section>
+
+      <section class="page" data-page="4">
+        <div class="avatar">☕</div><div class="eyebrow">4 / 5</div>
+        <h1>Birinchi uchrashuvimizdan keyin <span class="name">ideal ikkinchi uchrashuv</span> qaysi? ✨</h1>
+        <p class="sub">Endi tanlov biroz romantikroq. Tizim kimga ko‘proq yurak berishni bilmoqchi 💗</p>
+        <div class="choices">
+          <button class="btn wrongy">Faqat telefonga qarab o‘tirish 📱</button>
+          <button class="btn" data-correct="true">Sayr + shirin suhbat ☕💗</button>
+          <button class="btn wrongy">“Biror kuni” deb qo‘yish 😭</button>
+        </div>
+      </section>
+
+      <section class="page" data-page="5">
+        <div id="lastQuestion">
+          <div class="avatar">🎁</div><div class="eyebrow">5 / 5</div>
+          <h1>Oxirgi savol… <span class="name">birinchi uchrashuvimiz</span> haqida 🌸</h1>
+          <p class="sub">Bu safar savol oddiy: yana bir marta uchrashishni xohlaysanmi? 💗</p>
+          <div class="wrong-zone" id="zone">
+            <button class="btn wrongy" style="left:8%;top:10%">Hali bilmayman 🙈</button>
+            <button class="btn wrongy" style="right:7%;bottom:8%">Ko‘ramiz 😌</button>
+            <button class="btn" id="finalCorrect" data-correct="true" style="left:50%;top:50%;transform:translate(-50%,-50%);width:240px">Ha, yana uchrashamiz 💗</button>
+          </div>
+        </div>
+        <div id="result" style="display:none;max-width:650px">
+          <div class="heart" style="font-size:76px;animation:pulse 1.2s infinite">💖</div>
+          <div class="eyebrow">MISSION COMPLETE</div>
+          <h1>Demak, bizning <span class="name">hikoyamiz endi boshlanadi</span>. 🌷</h1>
+          <p class="sub">Birinchi uchrashuv — shunchaki boshlanish. Eng yaxshi suhbatlar, kulgular va chiroyli uchrashuvlar hali oldinda. Seni yana ko‘rish yoqimli bo‘lardi. ✨</p>
+          <button class="next show" onclick="location.reload()">Qaytadan o‘ynash ↻</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+<script>
+  const pages=[...document.querySelectorAll('.page')];
+  const bar=document.getElementById('bar');
+  const error=document.getElementById('error');
+  let current=0;
+  const messages=[
+    'ERROR 404: Noto‘g‘ri javob topildi 😭',
+    'SYSTEM: Bu variant birinchi uchrashuvga mos kelmadi 😂',
+    'WARNING: Romantiklik yetarli emas 🚨',
+    'ERROR: Yurak hali bunga rozi bo‘lmadi 💔',
+    'ACCESS DENIED: Yaxshiroq variantni bosing 😌'
+  ];
+
+  function showPage(i){
+    pages.forEach((p,idx)=>p.classList.toggle('active',idx===i));
+    bar.style.width=((Math.min(i+1,5)/5)*100)+'%';
+    current=i;
+  }
+  function sparkle(emoji='💗', x=innerWidth/2,y=innerHeight/2){
+    const s=document.createElement('div'); s.className='sparkle'; s.textContent=emoji; s.style.left=x+'px';s.style.top=y+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),950)
+  }
+  function correct(btn){
+    btn.classList.add('correct'); sparkle('💚',btn.getBoundingClientRect().left+btn.offsetWidth/2,btn.getBoundingClientRect().top+btn.offsetHeight/2);
+    if(btn.id==='finalCorrect'){
+      setTimeout(()=>{ document.getElementById('lastQuestion').style.display='none'; document.getElementById('result').style.display='block'; bar.style.width='100%'; },520);
+    } else {
+      setTimeout(()=>showPage(current+1),520);
+    }
+  }
+  function wrong(btn){
+    btn.classList.remove('wrong'); void btn.offsetWidth; btn.classList.add('wrong');
+    error.textContent=messages[Math.floor(Math.random()*messages.length)]; error.classList.add('show');
+    setTimeout(()=>error.classList.remove('show'),1100);
+    sparkle('❌',btn.getBoundingClientRect().left+btn.offsetWidth/2,btn.getBoundingClientRect().top+btn.offsetHeight/2);
+    const parent=btn.closest('.choices') || document.getElementById('zone');
+    const area=parent.getBoundingClientRect();
+    if(parent.classList.contains('wrong-zone') || Math.random()<0.7){
+      const maxX=Math.max(10,area.width-btn.offsetWidth-10), maxY=Math.max(10,area.height-btn.offsetHeight-10);
+      btn.style.left=(Math.random()*maxX)+'px'; btn.style.top=(Math.random()*maxY)+'px'; btn.style.right='auto'; btn.style.bottom='auto';
+    }
+  }
+  document.querySelectorAll('.btn').forEach(btn=>btn.addEventListener('click',()=>btn.dataset.correct==='true'?correct(btn):wrong(btn)));
+
+  const flo=document.getElementById('floaters');
+  ['💗','✨','🌸','💕','💫','🎀','🦋'].forEach((e,i)=>{for(let j=0;j<4;j++){const x=document.createElement('div');x.className='bg-heart';x.textContent=e;x.style.left=(i*14+Math.random()*10)+'vw';x.style.animationDelay=(-Math.random()*8)+'s';x.style.animationDuration=(7+Math.random()*7)+'s';x.style.fontSize=(14+Math.random()*18)+'px';flo.appendChild(x)}});
+</script>
+</body>
+</html>
