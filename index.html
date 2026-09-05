@@ -52,12 +52,288 @@ h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,72px);line-he
 @media(max-width:720px){.app{width:95vw;height:94vh;margin:3vh auto}.header{padding:18px 18px}.status{gap:8px}.meter{width:100px}.page{padding:46px 20px 28px}.choices{grid-template-columns:1fr}.resultBox{grid-template-columns:1fr}.score{font-size:70px}.inputRow{flex-direction:column}.corner{right:18px;top:18px}}
 
 .adminWrap{width:min(1100px,94vw);height:min(790px,92vh);margin:4vh auto;position:relative;z-index:5}.adminShell{height:100%;border:1px solid var(--line);background:rgba(16,6,14,.78);backdrop-filter:blur(24px);border-radius:34px;box-shadow:var(--shadow);overflow:hidden}.adminHead{padding:24px 28px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}.adminGrid{height:calc(100% - 84px);display:grid;grid-template-columns:330px 1fr}.sessionList{padding:18px;border-right:1px solid rgba(255,255,255,.08);overflow:auto}.sessionItem{width:100%;text-align:left;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.045);color:#fff;border-radius:18px;padding:15px;margin-bottom:10px;cursor:pointer}.sessionItem.active{border-color:#ff82b8;background:rgba(255,111,174,.12)}.sessionItem strong{display:block;font-size:15px}.sessionItem small{color:#cda8bc}.adminMain{padding:28px;overflow:auto}.liveScore{font-family:'Cormorant Garamond',serif;font-size:76px;color:#ffd6e8}.answerRow{display:grid;grid-template-columns:48px 1fr 70px;gap:14px;align-items:start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07)}.answerNo{color:#e8a5c6;font-weight:800}.answerText{line-height:1.55}.answerLove{color:#ffd3e5;font-weight:800;text-align:right}.liveDot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#7dffb2;box-shadow:0 0 12px #7dffb2;margin-right:7px}.empty{color:#c79db5;line-height:1.7}@media(max-width:760px){.adminGrid{grid-template-columns:1fr}.sessionList{max-height:220px;border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}.adminShell{height:94vh}.adminWrap{margin:3vh auto}}
+
+/* ===== Responsive polish ===== */
+html, body { min-height: 100%; }
+body { overflow-x: hidden; overflow-y: auto; -webkit-text-size-adjust: 100%; }
+button, input, textarea { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+
+@media (max-width: 900px) {
+  .app, .adminWrap { width: min(96vw, 760px); height: auto; min-height: 94vh; margin: 3vh auto; }
+  .shell, .adminShell { min-height: 94vh; height: auto; border-radius: 26px; }
+  .page, .bonusPage { min-height: calc(94vh - 78px); height: auto; padding: 42px 30px 34px; }
+  .choices { width: min(760px, 100%); }
+  h1 { font-size: clamp(38px, 7vw, 62px); }
+  .resultBox { width: 100%; }
+}
+
+@media (max-width: 600px) {
+  body { overflow-y: auto; }
+  .app { width: 100%; min-height: 100svh; margin: 0; }
+  .shell { min-height: 100svh; border-radius: 0; border-left: 0; border-right: 0; }
+  .header {
+    height: auto;
+    min-height: 74px;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .brand { font-size: 14px; white-space: nowrap; }
+  .brand em { font-size: 20px; }
+  .status { flex: 1; justify-content: flex-end; min-width: 0; }
+  .meter { width: min(25vw, 100px); }
+  .love { min-width: 54px; font-size: 12px; }
+
+  .page, .bonusPage {
+    min-height: calc(100svh - 74px);
+    padding: 54px 16px 28px;
+    justify-content: flex-start;
+    overflow: visible;
+  }
+  .corner { top: 17px; right: 16px; font-size: 10px; }
+  .icon { font-size: 48px; margin-bottom: 14px; }
+  .eyebrow { font-size: 9px; letter-spacing: 2px; }
+  h1 {
+    font-size: clamp(34px, 10vw, 48px);
+    line-height: 1.02;
+    letter-spacing: -.5px;
+    margin-bottom: 14px;
+  }
+  .sub { font-size: 14px; line-height: 1.55; margin-bottom: 22px; }
+  .inputRow { width: 100%; flex-direction: column; gap: 10px; }
+  .input { width: 100%; min-height: 54px; font-size: 16px; }
+  .primary {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 12px;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+  .choices { grid-template-columns: 1fr; gap: 11px; }
+  .choice {
+    width: 100%;
+    min-height: 62px;
+    padding: 15px 16px;
+    border-radius: 17px;
+    font-size: 14px;
+  }
+  .choice:hover { transform: none; box-shadow: none; }
+  .choice:active { transform: scale(.985); }
+  .resultBox { grid-template-columns: 1fr; gap: 14px; }
+  .scoreCard, .letter { padding: 21px; border-radius: 22px; }
+  .score { font-size: 68px; }
+  .letter h2 { font-size: 32px; }
+  .boxGrid { grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+  .mysteryBox { height: 125px; border-radius: 21px; }
+  .mysteryBox:hover { transform: none; }
+  .mysteryBox .gift { font-size: 48px; }
+  .gameArena { width: 100%; height: 270px; margin-top: 10px; border-radius: 21px; }
+  .tapHeart { font-size: 34px; padding: 5px; }
+  .gameHud { gap: 16px; font-size: 13px; flex-wrap: wrap; }
+  .storyCard { width: 100%; padding: 20px; border-radius: 23px; }
+  .storyLine { font-size: 25px; min-height: 0; }
+  .memoryCard { padding: 17px; border-radius: 19px; }
+  .memoryGrid { grid-template-columns: 1fr; }
+  .copyBtn { width: 100%; min-height: 48px; }
+  .textBox { width: 100%; }
+  .textArea { min-height: 135px; font-size: 16px; }
+
+  .adminWrap { width: 100%; min-height: 100svh; margin: 0; }
+  .adminShell { min-height: 100svh; border-radius: 0; }
+  .adminHead { padding: 17px 16px; }
+  .adminGrid { height: auto; min-height: calc(100svh - 78px); grid-template-columns: 1fr; }
+  .sessionList { max-height: 210px; padding: 12px; }
+  .adminMain { padding: 20px 16px; }
+  .adminMain h1 { font-size: 38px !important; }
+  .answerRow { grid-template-columns: 34px 1fr; gap: 8px; }
+  .answerLove { grid-column: 2; text-align: left; }
+}
+
+/* Very short phones: keep controls reachable */
+@media (max-width: 600px) and (max-height: 700px) {
+  .page, .bonusPage { padding-top: 48px; }
+  .icon { font-size: 40px; margin-bottom: 9px; }
+  h1 { font-size: clamp(30px, 9vw, 42px); }
+  .sub { margin-bottom: 15px; }
+  .choice { min-height: 56px; padding: 12px 14px; }
+  .choice b { margin-bottom: 4px; }
+}
+
+/* Prevent iOS/Android browser zoom on form controls */
+@media (max-width: 600px) {
+  input, textarea, select { font-size: 16px !important; }
+}
+
+
+/* ===== FINAL RESPONSIVE PATCH: PHONE + PC ===== */
+* { box-sizing: border-box; }
+html { width: 100%; min-height: 100%; }
+body {
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+img, video, canvas, svg { max-width: 100%; height: auto; }
+button, input, textarea, select { font: inherit; }
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+.page, .bonusPage { width: 100%; max-width: 100%; }
+
+@media (min-width: 901px) {
+  .shell { width: min(1180px, calc(100vw - 40px)); margin: 20px auto; }
+  .page, .bonusPage { padding: 34px; }
+  .choices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  body { overflow-x: hidden; overflow-y: auto; }
+  .shell {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+  .header {
+    padding: 12px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .header h1 { font-size: clamp(18px, 4.8vw, 26px); }
+  .page, .bonusPage {
+    min-height: calc(100svh - 70px);
+    padding: clamp(18px, 4vw, 30px);
+  }
+  .card, .panel, .result-card, .story-card, .admin-card {
+    max-width: 100%;
+  }
+  .choices {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .choice, .primary, .secondary, .next, .start, button {
+    min-height: 48px;
+  }
+  input, textarea, select {
+    width: 100%;
+    max-width: 100%;
+    font-size: 16px !important;
+  }
+  .result-grid, .bonus-grid, .story-grid, .admin-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+@media (max-width: 600px) {
+  .header { padding: 10px 12px; }
+  .header .right, .header .stats { width: 100%; justify-content: space-between; }
+  .page, .bonusPage { padding: 16px 12px 28px; }
+  .card, .panel, .result-card, .story-card {
+    padding: 16px !important;
+    border-radius: 16px;
+  }
+  h1 { font-size: clamp(22px, 7vw, 32px); line-height: 1.15; }
+  h2 { font-size: clamp(19px, 6vw, 27px); }
+  h3 { font-size: clamp(17px, 5.2vw, 22px); }
+  p, label, .sub { font-size: 15px; line-height: 1.55; }
+  .choices { gap: 9px; }
+  .choice {
+    width: 100%;
+    min-height: 52px;
+    padding: 13px 14px;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .primary, .secondary, .next, .start {
+    width: 100%;
+    min-height: 52px;
+    padding: 13px 16px;
+  }
+  .progress, .progress-bar { max-width: 100%; }
+  .heart, .mystery, .secret { touch-action: manipulation; }
+}
+
+@media (max-width: 380px) {
+  .page, .bonusPage { padding-left: 10px; padding-right: 10px; }
+  .card, .panel, .result-card, .story-card { padding: 13px !important; }
+  h1 { font-size: 24px; }
+  .choice { min-height: 50px; padding: 12px; }
+}
+
+
+
+/* ===== CLEAN RESPONSIVE PATCH ===== */
+html,body{min-width:0;}
+body{overflow-x:hidden;}
+
+@media (max-width:900px){
+  .app,.adminWrap{width:96vw;height:auto;min-height:94vh;margin:3vh auto;}
+  .shell,.adminShell{min-height:94vh;height:auto;border-radius:26px;}
+  .page,.bonusPage{min-height:calc(94vh - 82px);height:auto;padding:38px 24px 30px;}
+  .resultBox,.adminGrid{grid-template-columns:1fr;}
+  .choices{grid-template-columns:1fr;}
+}
+
+@media (max-width:600px){
+  body{font-size:15px;}
+  .app,.adminWrap{width:100%;min-height:100svh;margin:0;}
+  .shell,.adminShell{min-height:100svh;border-radius:0;}
+  .header{height:auto;min-height:70px;padding:12px 14px;gap:10px;}
+  .brand{font-size:14px;}
+  .brand em{font-size:19px;}
+  .status{flex:1;gap:8px;min-width:0;}
+  .meter{width:25vw;max-width:100px;}
+  .love{min-width:auto;font-size:12px;}
+  .page,.bonusPage{min-height:calc(100svh - 70px);padding:46px 14px 24px;justify-content:flex-start;}
+  .corner{top:14px;right:14px;font-size:10px;}
+  .icon{font-size:44px;margin-bottom:12px;}
+  .eyebrow{font-size:9px;letter-spacing:2px;}
+  h1{font-size:clamp(30px,8vw,44px);line-height:1.04;}
+  .sub{font-size:14px;line-height:1.55;margin-bottom:20px;}
+  .inputRow{width:100%;flex-direction:column;}
+  .input{width:100%;min-height:52px;}
+  .primary{width:100%;min-height:52px;margin-top:10px;}
+  .choice{width:100%;min-height:54px;padding:14px 15px;text-align:left;}
+  .choice:hover{transform:none;box-shadow:none;}
+  .resultBox{gap:14px;}
+  .scoreCard,.letter,.storyCard{padding:18px;border-radius:20px;}
+  .score{font-size:66px;}
+  .letter h2{font-size:30px;}
+  .boxGrid{grid-template-columns:1fr;gap:10px;}
+  .mysteryBox{height:120px;}
+  .gameArena{width:100%;height:260px;}
+  .gameHud{gap:12px;flex-wrap:wrap;font-size:13px;}
+  .storyLine{font-size:25px;min-height:0;}
+  .memoryGrid{grid-template-columns:1fr;}
+  .copyBtn{width:100%;min-height:48px;}
+  .adminGrid{display:grid;}
+  .sessionList{max-height:210px;border-right:0;border-bottom:1px solid rgba(255,255,255,.08);}
+  .adminMain{padding:18px 14px;}
+  input,textarea,select{font-size:16px !important;}
+}
+
 </style>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getDatabase, ref, push, set, update, onValue, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 window.__fb = { initializeApp, getDatabase, ref, push, set, update, onValue, query, orderByChild };
+
+/* ===== MOBILE TOUCH FALLBACK ===== */
+document.addEventListener('touchstart', function(e){
+  const el = e.target.closest('button, .choice, .mystery, .heart, .secret');
+  if(el) el.classList.add('touch-active');
+}, {passive:true});
+document.addEventListener('touchend', function(e){
+  const el = e.target.closest('button, .choice, .mystery, .heart, .secret');
+  if(el) el.classList.remove('touch-active');
+}, {passive:true});
+
 </script>
 </head>
 <body>
@@ -177,30 +453,82 @@ function initSession(){
   return window.__fb.set(sessionRef,{name:displayName,score:0,percent:0,startedAt:Date.now(),status:'active',answers:{}});
 }
 
-document.getElementById('start').onclick=async()=>{displayName=document.getElementById('name').value.trim()||'Siz';document.getElementById('intro').querySelector('.sub').textContent=`${displayName}, tayyormisiz? Har bir javob hikoyamizdagi mehr indikatoriga ta'sir qiladi. 💌`;score=0;updateHeader();showPage(1);await initSession()};
+let startLock=false;
+async function startQuiz(){
+  if(startLock) return;
+  startLock=true;
+  setTimeout(()=>startLock=false,700);
+  const nameEl=document.getElementById('name');
+  displayName=nameEl?.value.trim()||'Siz';
+  document.getElementById('intro').querySelector('.sub').textContent=`${displayName}, tayyormisiz? Har bir javob hikoyamizdagi mehr indikatoriga ta'sir qiladi. 💌`;
+  score=0;
+  answers=[];
+  updateHeader();
+  showPage(1);
+  try { await initSession(); }
+  catch(e) { console.error('Session init:',e); }
+}
+const nameInput=document.getElementById('name');
+if(nameInput) nameInput.addEventListener('keydown',(e)=>{if(e.key==='Enter'){e.preventDefault();startQuiz();}});
+const startBtn=document.getElementById('start');
+if(startBtn){
+  startBtn.addEventListener('click',startQuiz);
+  startBtn.addEventListener('touchend',(e)=>{ e.preventDefault(); startQuiz(); },{passive:false});
+}
 const secretText=document.getElementById('secretText');
 const charCount=document.getElementById('charCount');
 secretText?.addEventListener('input',()=>{charCount.textContent=secretText.value.length});
 
-questions.forEach((q,qi)=>q.querySelectorAll('.choice').forEach(btn=>btn.onclick=async()=>{
-  if(btn.classList.contains('selected')) return;
-  q.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');
-  const add=Number(btn.dataset.love);score+=add;
-  const pct=Math.min(100,Math.round(score/maxScore*100));loveEl.textContent=pct+'%';
-  const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,11);
-  answers.push({question:qi+1,questionText:q.querySelector('h1')?.innerText||'',answer:btn.innerText.trim(),love:add,time:Date.now()});
-  if(sessionRef){
-    await window.__fb.update(sessionRef,{score,percent:pct,answers:{[qi+1]:answers[answers.length-1]},lastUpdatedAt:Date.now()});
-  }
-  if(add>=11) notify('Yurak signali kuchaydi 💗'); else notify('Mehr indikatori yangilandi ✨');
-  setTimeout(async()=>{
-    if(qi===5){ goBonus('mysteryBonus'); return; }
-    if(qi===10){ goBonus('heartGame'); return; }
-    if(qi===14){ goBonus('secretLevel'); return; }
-    if(qi===questions.length-1){ goBonus('storyReveal'); buildStory(); return; }
-    goNext();
-  },650);
-}));
+questions.forEach((q,qi)=>{
+  q.querySelectorAll('.choice').forEach(btn=>{
+    const chooseAnswer=async()=>{
+      if(btn.classList.contains('selected')) return;
+      q.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      const add=Number(btn.dataset.love)||0;
+      score+=add;
+      const pct=Math.min(100,Math.round(score/maxScore*100));
+      loveEl.textContent=pct+'%';
+
+      const r=btn.getBoundingClientRect();
+      particles(r.left+r.width/2,r.top+r.height/2,11);
+      answers.push({
+        question:qi+1,
+        questionText:q.querySelector('h1')?.innerText||'',
+        answer:btn.innerText.trim(),
+        love:add,
+        time:Date.now()
+      });
+
+      if(sessionRef){
+        try{
+          await window.__fb.update(sessionRef,{
+            score,
+            percent:pct,
+            answers:{[qi+1]:answers[answers.length-1]},
+            lastUpdatedAt:Date.now()
+          });
+        }catch(e){
+          console.error('Answer update:',e);
+        }
+      }
+
+      if(add>=8) notify('Yurak signali kuchaydi 💗');
+      else notify('Mehr indikatori yangilandi ✨');
+
+      setTimeout(()=>{
+        if(qi===5){ goBonus('mysteryBonus'); return; }
+        if(qi===10){ goBonus('heartGame'); return; }
+        if(qi===14){ goBonus('secretLevel'); return; }
+        if(qi===questions.length-1){ goBonus('storyReveal'); buildStory(); return; }
+        goNext();
+      },650);
+    };
+
+    btn.addEventListener('click',chooseAnswer);
+  });
+});
 
 document.getElementById('sendSecret')?.addEventListener('click',async()=>{
   const text=secretText.value.trim();
@@ -215,24 +543,35 @@ document.getElementById('sendSecret')?.addEventListener('click',async()=>{
 
 // Mystery box
 let mysteryChosen=false;
-document.querySelectorAll('.mysteryBox').forEach(btn=>btn.addEventListener('click',async()=>{
+document.querySelectorAll('.mysteryBox').forEach(btn=>{
+  const chooseMystery=async()=>{
   if(mysteryChosen)return; mysteryChosen=true; const add=Number(btn.dataset.bonus); score+=add;
   const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,22);dove();hearts();
   document.getElementById('mysteryResult').textContent=['Sizning sirli qutingizdan 💗 “Siz kutganingizdan ham chiroyliroq davom bor.”','💝 Bonus ochildi: suhbatimiz uchun yana bir imkon!','🎀 Yashirin tabassum topildi. Hikoya davom etsin…'][Math.floor(Math.random()*3)];
   notify('Bonus Mehr +'+add+'% 💞');
   if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),bonusMystery:add,lastUpdatedAt:Date.now()});
   setTimeout(()=>{goBonus('heartGame');},1400);
-}));
+  };
+  btn.addEventListener('click',chooseMystery);
+  btn.addEventListener('touchend',(e)=>{e.preventDefault();chooseMystery();},{passive:false});
+});
 
 // Heart hunt mini-game
 let gameStarted=false, gameTimer=null, gameHits=0, gameLeft=15;
-function spawnTapHeart(){const arena=document.getElementById('gameArena');if(!arena)return;const h=document.createElement('div');h.className='tapHeart';h.textContent=['💗','💖','💕','💞'][Math.floor(Math.random()*4)];h.style.left=(5+Math.random()*88)+'%';h.style.top=(8+Math.random()*78)+'%';h.onclick=()=>{if(!gameStarted)return;gameHits++;document.getElementById('gameScore').textContent=gameHits;particles(h.getBoundingClientRect().left,h.getBoundingClientRect().top,8);h.remove();if(gameHits<7)spawnTapHeart();else finishHeartGame(true)};arena.appendChild(h)}
+function spawnTapHeart(){const arena=document.getElementById('gameArena');if(!arena)return;const h=document.createElement('div');h.className='tapHeart';h.textContent=['💗','💖','💕','💞'][Math.floor(Math.random()*4)];h.style.left=(5+Math.random()*88)+'%';h.style.top=(8+Math.random()*78)+'%';const hit=()=>{if(!gameStarted)return;gameHits++;document.getElementById('gameScore').textContent=gameHits;particles(h.getBoundingClientRect().left,h.getBoundingClientRect().top,8);h.remove();if(gameHits<7)spawnTapHeart();else finishHeartGame(true)};
+h.addEventListener('click',hit);
+h.addEventListener('touchend',(e)=>{e.preventDefault();hit();},{passive:false});
+arena.appendChild(h)}
 function startHeartGame(){if(gameStarted)return;gameStarted=true;gameHits=0;gameLeft=15;document.getElementById('gameScore').textContent=0;document.getElementById('gameTime').textContent=15;document.getElementById('gameResult').textContent='';document.getElementById('startGame').disabled=true;document.getElementById('startGame').textContent='Toping… 💗';for(let i=0;i<2;i++)spawnTapHeart();gameTimer=setInterval(()=>{gameLeft--;document.getElementById('gameTime').textContent=gameLeft;if(gameLeft<=0)finishHeartGame(false)},1000)}
 async function finishHeartGame(won){if(!gameStarted)return;gameStarted=false;clearInterval(gameTimer);document.querySelectorAll('.tapHeart').forEach(x=>x.remove());const add=won?10:4;score+=add;document.getElementById('gameResult').textContent=won?'Barcha yuraklar topildi! 💖 Bonus Mehr +10%':'Vaqt tugadi, ammo yuragingiz +4% oldi 💗';document.getElementById('startGame').disabled=false;document.getElementById('startGame').textContent='Davom etish ✨';dove();hearts();notify('Heart Hunt tugadi 💞');if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),heartGame:{hits:gameHits,won,bonus:add},lastUpdatedAt:Date.now()});setTimeout(()=>goNext(),1200)}
 document.getElementById('startGame')?.addEventListener('click',startHeartGame);
 
 // Secret level
-const secretLevelEl=document.getElementById('secretLevel');secretLevelEl?.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',async()=>{secretLevelEl.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');const add=Number(btn.dataset.extra);score+=add;const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,16);notify('SECRET LEVEL +'+add+'% ❤️');if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),secretLevel:btn.innerText.trim(),lastUpdatedAt:Date.now()});setTimeout(()=>{goBonus('storyReveal');buildStory();},800)}));
+const secretLevelEl=document.getElementById('secretLevel');secretLevelEl?.querySelectorAll('.choice').forEach(btn=>{
+  const chooseSecret=async()=>{secretLevelEl.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');const add=Number(btn.dataset.extra);score+=add;const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,16);notify('SECRET LEVEL +'+add+'% ❤️');if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),secretLevel:btn.innerText.trim(),lastUpdatedAt:Date.now()});setTimeout(()=>{goBonus('storyReveal');buildStory();},800)};
+  btn.addEventListener('click',chooseSecret);
+  btn.addEventListener('touchend',(e)=>{e.preventDefault();chooseSecret();},{passive:false});
+});
 
 function buildStory(){
   const pct=Math.min(100,Math.round(score/maxScore*100));
