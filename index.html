@@ -1,170 +1,274 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ilk uchrashuvimiz 💗 — Secret Quiz</title>
-  <style>
-    :root{
-      --pink:#ff5fa2; --pink2:#ff8fc3; --lav:#c4b5fd; --text:#351833;
-      --glass:rgba(255,255,255,.74); --shadow:0 22px 60px rgba(164,50,112,.18);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);overflow:hidden;
-      background:radial-gradient(circle at 15% 20%,#ffe8f2 0 18%,transparent 35%),radial-gradient(circle at 85% 80%,#eee9ff 0 18%,transparent 35%),linear-gradient(135deg,#fff7fb,#f7f1ff 48%,#fff7fb)}
-    .bg-heart{position:fixed;font-size:22px;opacity:.22;animation:float 9s linear infinite;pointer-events:none}
-    @keyframes float{from{transform:translateY(110vh) rotate(0)}to{transform:translateY(-15vh) rotate(360deg)}}
-    .app{width:min(900px,92vw);height:min(760px,92vh);margin:4vh auto;position:relative}
-    .card{width:100%;height:100%;background:var(--glass);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.9);border-radius:34px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-    .top{padding:22px 28px 0;display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{font-weight:900;letter-spacing:.3px}.brand span{color:var(--pink)}
-    .progress{width:210px;height:9px;background:#f1ddea;border-radius:99px;overflow:hidden}.bar{height:100%;width:20%;background:linear-gradient(90deg,var(--pink),#b27cff);border-radius:99px;transition:.45s}
-    .page{display:none;height:calc(100% - 72px);padding:30px 28px 32px;position:relative}.page.active{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:pageIn .45s ease}
-    @keyframes pageIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
-    .eyebrow{font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#a65a87;margin-bottom:8px}
-    h1{font-size:clamp(29px,5vw,50px);margin:0 0 12px;line-height:1.08}.sub{max-width:650px;font-size:17px;line-height:1.6;color:#6a4f66;margin:0 auto 26px}
-    .name{color:var(--pink)}
-    .avatar{width:104px;height:104px;border-radius:32px;display:grid;place-items:center;font-size:56px;background:linear-gradient(135deg,#fff,#ffe1ef);box-shadow:0 14px 30px rgba(255,95,162,.18);margin-bottom:18px;animation:bob 2.8s ease-in-out infinite}
-    @keyframes bob{50%{transform:translateY(-6px) rotate(2deg)}}
-    .choices{width:min(620px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative}
-    .btn{border:0;border-radius:20px;padding:17px 16px;font-size:16px;font-weight:800;color:#4a2741;background:#fff;box-shadow:0 10px 24px rgba(97,38,87,.09);cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-    .btn:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(97,38,87,.14)}
-    .btn.correct{background:#e6fff0!important;outline:3px solid #53d78c;animation:good .55s}.btn.wrong{background:#fff0f3!important;outline:3px solid #ff667f;animation:shake .42s}
-    @keyframes good{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-    @keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
-    .next{margin-top:18px;padding:14px 24px;border:0;border-radius:17px;background:linear-gradient(135deg,var(--pink),#b76bff);color:white;font-weight:900;cursor:pointer;box-shadow:0 12px 22px rgba(255,95,162,.25);display:none}
-    .next.show{display:inline-block;animation:pageIn .35s}
-    .error{position:absolute;left:50%;top:16px;transform:translate(-50%,-20px);opacity:0;background:#2b1620;color:#fff0f4;padding:11px 15px;border-radius:15px;font-size:14px;font-weight:800;pointer-events:none;white-space:nowrap;transition:.25s;z-index:30}
-    .error.show{opacity:1;transform:translate(-50%,0)}
-    .wrong-zone{width:min(620px,100%);min-height:250px;position:relative;display:flex;align-items:center;justify-content:center}
-    .wrong-zone .btn{position:absolute;width:190px}
-    .final .heart{font-size:76px;animation:pulse 1.2s infinite}
-    @keyframes pulse{50%{transform:scale(1.12)}}
-    .sparkle{position:fixed;pointer-events:none;font-size:24px;animation:pop .9s ease forwards;z-index:100}
-    @keyframes pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(0)}25%{opacity:1}100%{opacity:0;transform:translate(-50%,-150px) scale(1.5) rotate(180deg)}}
-    .tiny{font-size:13px;color:#8c7087;margin-top:10px}
-    @media (max-width:650px){.app{height:94vh;margin:3vh auto}.choices{grid-template-columns:1fr}.page{padding:20px 18px}.progress{width:140px}.wrong-zone .btn{width:150px;font-size:14px}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bizning Hikoyamiz 💗</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+:root{
+  --bg1:#12070f; --bg2:#2a0e20; --bg3:#4a1632;
+  --cream:#fff7fb; --muted:#dfbdd1; --accent:#ff6fae; --accent2:#ffb4d6;
+  --glass:rgba(255,255,255,.085); --line:rgba(255,255,255,.15);
+  --shadow:0 30px 90px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Inter,system-ui,sans-serif;color:var(--cream);overflow:hidden}
+body{background:radial-gradient(circle at 15% 15%,rgba(255,111,174,.17),transparent 28%),radial-gradient(circle at 90% 85%,rgba(255,180,214,.12),transparent 30%),linear-gradient(135deg,var(--bg1),var(--bg2) 48%,var(--bg3));}
+.noise{position:fixed;inset:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");}
+.light{position:fixed;width:480px;height:480px;border-radius:50%;filter:blur(70px);opacity:.18;pointer-events:none;animation:drift 12s ease-in-out infinite alternate}
+.light.a{left:-120px;top:-140px;background:#ff4f9b}.light.b{right:-130px;bottom:-150px;background:#9c5cff;animation-delay:-5s}
+@keyframes drift{to{transform:translate(60px,35px) scale(1.08)}}
+.float{position:fixed;bottom:-60px;font-size:18px;opacity:.25;pointer-events:none;animation:rise 9s linear infinite;z-index:1}
+@keyframes rise{to{transform:translateY(-115vh) rotate(180deg);opacity:0}}
+.app{width:min(1080px,94vw);height:min(790px,92vh);margin:4vh auto;position:relative;z-index:5}
+.shell{height:100%;border:1px solid var(--line);background:rgba(16,6,14,.62);backdrop-filter:blur(24px);border-radius:34px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.header{height:82px;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08)}
+.brand{font-weight:800;letter-spacing:.4px}.brand em{font-family:'Cormorant Garamond',serif;color:var(--accent2);font-size:23px;font-style:normal}
+.status{display:flex;align-items:center;gap:14px}.meter{width:230px;height:7px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden}.meter i{display:block;height:100%;width:8%;background:linear-gradient(90deg,var(--accent),#ffb6de);border-radius:999px;transition:width .7s cubic-bezier(.22,1,.36,1)}
+.love{min-width:86px;text-align:right;font-weight:800;font-size:14px;color:#ffd8e9}.love span{color:#fff}
+.page{height:calc(100% - 82px);padding:42px 54px;display:none;position:relative}.page.active{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:pageIn .65s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(24px) scale(.985)}to{opacity:1;transform:none}}
+.corner{position:absolute;right:26px;top:22px;font-size:12px;color:#dca5c5;letter-spacing:1.8px;text-transform:uppercase}.corner strong{color:#fff}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#e9aacb;margin-bottom:10px}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,72px);line-height:.95;margin:0 0 18px;max-width:900px;font-weight:600;letter-spacing:-1px}.accent{color:var(--accent2)}
+.sub{max-width:720px;color:var(--muted);font-size:16px;line-height:1.7;margin:0 0 30px}.icon{font-size:58px;line-height:1;margin-bottom:20px;filter:drop-shadow(0 15px 25px rgba(255,111,174,.22));animation:floatIcon 3.3s ease-in-out infinite}
+@keyframes floatIcon{50%{transform:translateY(-8px) rotate(2deg)}}
+.choices{width:min(820px,100%);display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.choice{border:1px solid rgba(255,255,255,.11);background:linear-gradient(145deg,rgba(255,255,255,.095),rgba(255,255,255,.045));color:#fff;border-radius:20px;padding:19px 20px;text-align:left;font-size:15px;font-weight:700;cursor:pointer;transition:.25s;position:relative;overflow:hidden}.choice:hover{transform:translateY(-3px);border-color:rgba(255,180,214,.5);box-shadow:0 16px 35px rgba(0,0,0,.22)}.choice::after{content:'';position:absolute;inset:-80% -30%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.12) 50%,transparent 65%);transform:translateX(-70%);transition:.7s}.choice:hover::after{transform:translateX(70%)}
+.choice.selected{border-color:#ff8fc0;background:linear-gradient(145deg,rgba(255,111,174,.22),rgba(255,180,214,.08));box-shadow:0 0 0 2px rgba(255,111,174,.12),0 18px 40px rgba(255,49,132,.14)}
+.choice b{display:block;font-size:12px;letter-spacing:1.6px;color:#eab1cc;margin-bottom:7px}.choice span{color:#fff}
+.primary{margin-top:22px;padding:15px 28px;border:0;border-radius:17px;background:linear-gradient(135deg,#ff5a9f,#c56cff);color:white;font-weight:800;cursor:pointer;box-shadow:0 16px 32px rgba(255,90,159,.2);transition:.25s}.primary:hover{transform:translateY(-2px) scale(1.02)}
+.inputRow{width:min(520px,100%);display:flex;gap:10px}.input{flex:1;border:1px solid var(--line);background:rgba(255,255,255,.07);color:#fff;border-radius:18px;padding:17px 18px;outline:none;font-size:16px;text-align:center}.input::placeholder{color:#c89eb6}.input:focus{border-color:#ff80b7;box-shadow:0 0 0 4px rgba(255,128,183,.08)}
+.resultBox{width:min(860px,100%);display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}.scoreCard{border:1px solid var(--line);background:rgba(255,255,255,.06);border-radius:28px;padding:28px;text-align:left}.score{font-family:'Cormorant Garamond',serif;font-size:92px;line-height:.8;color:#ffd5e8;margin:8px 0 20px}.barline{height:10px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}.barline i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff5b9f,#ffc1df);transition:width 1.5s cubic-bezier(.22,1,.36,1)}.mini{font-size:13px;color:#cfabc0;line-height:1.6}.letter{border:1px solid rgba(255,180,214,.16);background:linear-gradient(135deg,rgba(255,111,174,.13),rgba(255,255,255,.04));border-radius:28px;padding:30px}.letter h2{font-family:'Cormorant Garamond',serif;font-size:38px;margin:0 0 10px}.letter p{color:#e4c8d7;line-height:1.75;margin:0}
+.toast{position:fixed;left:50%;top:96px;transform:translate(-50%,-20px);opacity:0;background:rgba(34,9,24,.95);border:1px solid rgba(255,180,214,.18);padding:12px 16px;border-radius:16px;font-size:13px;font-weight:700;z-index:50;transition:.3s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+.particle{position:fixed;pointer-events:none;z-index:60;font-size:20px;animation:pop .95s ease-out forwards}@keyframes pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}25%{opacity:1}100%{opacity:0;transform:translate(-50%,-150px) scale(1.6) rotate(18deg)}}
+.dove{position:fixed;font-size:28px;pointer-events:none;z-index:20;opacity:0;animation:fly 3.4s ease-in-out forwards}@keyframes fly{0%{opacity:0;transform:translate(-8vw,8vh) scale(.6)}12%{opacity:.9}100%{opacity:0;transform:translate(115vw,-35vh) scale(1.1) rotate(-4deg)}}
+.heartBurst{position:fixed;left:50%;top:50%;pointer-events:none;z-index:40}.heartBurst span{position:absolute;font-size:22px;animation:burst 1.1s ease-out forwards}@keyframes burst{0%{opacity:0;transform:translate(0,0) scale(.4)}20%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.4) rotate(20deg)}}
+.textBox{width:min(820px,100%);display:flex;flex-direction:column;gap:12px}.textArea{width:100%;min-height:150px;resize:none;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;border-radius:22px;padding:18px;font:500 15px Inter,sans-serif;outline:none}.textArea:focus{border-color:#ff80b7;box-shadow:0 0 0 4px rgba(255,128,183,.08)}.charCount{font-size:12px;color:#a87998;text-align:right}.typing{display:inline-block;min-width:30px}.typing span{display:inline-block;animation:dot 1.2s infinite}.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}@keyframes dot{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-4px);opacity:1}}.hidden{display:none!important}.tiny{color:#a87998;font-size:12px;margin-top:12px}
+
+.bonusPage{height:calc(100% - 82px);padding:42px 54px;display:none;position:relative}.bonusPage.active{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:pageIn .65s ease}
+.boxGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:min(820px,100%);margin-top:18px}.mysteryBox{height:190px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.035));border-radius:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.3s;position:relative;overflow:hidden}.mysteryBox:hover{transform:translateY(-7px) rotate(-1deg);box-shadow:0 22px 40px rgba(255,90,159,.18);border-color:rgba(255,180,214,.45)}.mysteryBox .gift{font-size:62px;filter:drop-shadow(0 12px 18px rgba(255,111,174,.2));animation:floatIcon 2.4s ease-in-out infinite}.mysteryBox small{margin-top:10px;color:#cda7bc}.bonusResult{margin-top:24px;font-size:18px;color:#ffe2ee;min-height:32px}.gameArena{width:min(760px,100%);height:270px;border:1px solid rgba(255,255,255,.11);background:radial-gradient(circle at center,rgba(255,111,174,.08),rgba(255,255,255,.025));border-radius:28px;position:relative;overflow:hidden;margin-top:16px}.tapHeart{position:absolute;font-size:38px;cursor:pointer;user-select:none;filter:drop-shadow(0 8px 20px rgba(255,90,159,.25));transition:transform .12s}.gameHud{display:flex;gap:28px;justify-content:center;margin-top:14px;color:#f8d4e4;font-weight:700}.secretUnlock{border:1px solid rgba(255,180,214,.2);border-radius:24px;padding:22px 26px;background:rgba(255,255,255,.05);margin-top:18px}.unlockCode{font-family:monospace;letter-spacing:5px;font-size:28px;color:#ffd5e8}.storyCard{width:min(860px,100%);border:1px solid rgba(255,255,255,.12);background:linear-gradient(145deg,rgba(255,111,174,.1),rgba(255,255,255,.03));border-radius:30px;padding:30px;box-shadow:0 24px 55px rgba(0,0,0,.2)}.storyLine{font-family:'Cormorant Garamond',serif;font-size:31px;line-height:1.35;color:#ffe8f2;min-height:125px}.memoryCard{margin-top:16px;padding:22px;border-radius:24px;border:1px solid rgba(255,180,214,.18);background:rgba(0,0,0,.13);text-align:left}.memoryGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.memoryStat{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.055);color:#f7d8e5}.memoryStat b{display:block;color:#fff;font-size:12px;letter-spacing:1px;margin-bottom:3px}.copyBtn{margin-top:14px;padding:12px 17px;border:1px solid rgba(255,180,214,.22);border-radius:14px;background:rgba(255,255,255,.07);color:#fff;font-weight:700;cursor:pointer}
+@media(max-width:720px){.boxGrid{grid-template-columns:1fr}.mysteryBox{height:150px}.gameArena{height:240px}.memoryGrid{grid-template-columns:1fr}.bonusPage{padding:46px 20px 28px}}
+
+@media(max-width:720px){.app{width:95vw;height:94vh;margin:3vh auto}.header{padding:18px 18px}.status{gap:8px}.meter{width:100px}.page{padding:46px 20px 28px}.choices{grid-template-columns:1fr}.resultBox{grid-template-columns:1fr}.score{font-size:70px}.inputRow{flex-direction:column}.corner{right:18px;top:18px}}
+
+.adminWrap{width:min(1100px,94vw);height:min(790px,92vh);margin:4vh auto;position:relative;z-index:5}.adminShell{height:100%;border:1px solid var(--line);background:rgba(16,6,14,.78);backdrop-filter:blur(24px);border-radius:34px;box-shadow:var(--shadow);overflow:hidden}.adminHead{padding:24px 28px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}.adminGrid{height:calc(100% - 84px);display:grid;grid-template-columns:330px 1fr}.sessionList{padding:18px;border-right:1px solid rgba(255,255,255,.08);overflow:auto}.sessionItem{width:100%;text-align:left;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.045);color:#fff;border-radius:18px;padding:15px;margin-bottom:10px;cursor:pointer}.sessionItem.active{border-color:#ff82b8;background:rgba(255,111,174,.12)}.sessionItem strong{display:block;font-size:15px}.sessionItem small{color:#cda8bc}.adminMain{padding:28px;overflow:auto}.liveScore{font-family:'Cormorant Garamond',serif;font-size:76px;color:#ffd6e8}.answerRow{display:grid;grid-template-columns:48px 1fr 70px;gap:14px;align-items:start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07)}.answerNo{color:#e8a5c6;font-weight:800}.answerText{line-height:1.55}.answerLove{color:#ffd3e5;font-weight:800;text-align:right}.liveDot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#7dffb2;box-shadow:0 0 12px #7dffb2;margin-right:7px}.empty{color:#c79db5;line-height:1.7}@media(max-width:760px){.adminGrid{grid-template-columns:1fr}.sessionList{max-height:220px;border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}.adminShell{height:94vh}.adminWrap{margin:3vh auto}}
+</style>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getDatabase, ref, push, set, update, onValue, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+window.__fb = { initializeApp, getDatabase, ref, push, set, update, onValue, query, orderByChild };
+</script>
 </head>
 <body>
-  <div id="floaters"></div>
-  <div class="app">
-    <div class="card">
-      <div class="top"><div class="brand">Ilk uchrashuvimiz <span>♥</span> Secret Quiz</div><div class="progress"><div id="bar" class="bar"></div></div></div>
-      <div id="error" class="error">SYSTEM ERROR 😭</div>
+<div class="noise"></div><div class="light a"></div><div class="light b"></div><div id="floats"></div>
 
-      <section class="page active" data-page="1">
-        <div class="avatar">💗</div><div class="eyebrow">1 / 5</div>
-        <h1>Birinchi marta ko‘rishganimizda <span class="name">menda</span> qanday taassurot qoldi? 😏</h1>
-        <p class="sub">Diqqat! Bu test birinchi uchrashuvimizdagi kayfiyatni tekshiradi. Eng samimiy javobni tanla 💗</p>
-        <div class="choices">
-          <button class="btn" data-correct="true">Yoqimli taassurot qoldirding 😊</button>
-          <button class="btn wrongy">Biroz hayron bo‘ldim 🤔</button>
-          <button class="btn wrongy">Hali tushunmadim 😅</button>
-        </div>
-        <p class="tiny">Birinchi taassurotni ortga qaytarib bo‘lmaydi 👀</p>
-      </section>
-
-      <section class="page" data-page="2">
-        <div class="avatar">📸</div><div class="eyebrow">2 / 5</div>
-        <h1>Birinchi uchrashuvdan keyin <span class="name">yana gaplashishni</span> xohlaysizmi? 💬</h1>
-        <p class="sub">Bu savolda yurakning signalini tekshiramiz. Faqat bitta variant keyingi bosqichga olib o‘tadi 💞</p>
-        <div class="choices">
-          <button class="btn" data-correct="true">Ha, albatta 💘</button>
-          <button class="btn wrongy">Hali o‘ylab ko‘raman 🤭</button>
-          <button class="btn wrongy">Faqat do‘stona 😶</button>
-        </div>
-      </section>
-
-      <section class="page" data-page="3">
-        <div class="avatar">🌷</div><div class="eyebrow">3 / 5</div>
-        <h1>Keyingi uchrashuv uchun <span class="name">qaysi variant</span> yoqadi? 🚶‍♀️</h1>
-        <p class="sub">Birinchi uchrashuvdan keyingi kichik reja. Eng yoqimli variantni topamiz... 👀</p>
-        <div class="choices">
-          <button class="btn wrongy">Keyinroq ko‘ramiz 😅</button>
-          <button class="btn wrongy">Hali erta 🤔</button>
-          <button class="btn" data-correct="true">Yana uchrashishga qarshi emasman 💞</button>
-        </div>
-      </section>
-
-      <section class="page" data-page="4">
-        <div class="avatar">☕</div><div class="eyebrow">4 / 5</div>
-        <h1>Birinchi uchrashuvimizdan keyin <span class="name">ideal ikkinchi uchrashuv</span> qaysi? ✨</h1>
-        <p class="sub">Endi tanlov biroz romantikroq. Tizim kimga ko‘proq yurak berishni bilmoqchi 💗</p>
-        <div class="choices">
-          <button class="btn wrongy">Faqat telefonga qarab o‘tirish 📱</button>
-          <button class="btn" data-correct="true">Sayr + shirin suhbat ☕💗</button>
-          <button class="btn wrongy">“Biror kuni” deb qo‘yish 😭</button>
-        </div>
-      </section>
-
-      <section class="page" data-page="5">
-        <div id="lastQuestion">
-          <div class="avatar">🎁</div><div class="eyebrow">5 / 5</div>
-          <h1>Oxirgi savol… <span class="name">birinchi uchrashuvimiz</span> haqida 🌸</h1>
-          <p class="sub">Bu safar savol oddiy: yana bir marta uchrashishni xohlaysanmi? 💗</p>
-          <div class="wrong-zone" id="zone">
-            <button class="btn wrongy" style="left:8%;top:10%">Hali bilmayman 🙈</button>
-            <button class="btn wrongy" style="right:7%;bottom:8%">Ko‘ramiz 😌</button>
-            <button class="btn" id="finalCorrect" data-correct="true" style="left:50%;top:50%;transform:translate(-50%,-50%);width:240px">Ha, yana uchrashamiz 💗</button>
-          </div>
-        </div>
-        <div id="result" style="display:none;max-width:650px">
-          <div class="heart" style="font-size:76px;animation:pulse 1.2s infinite">💖</div>
-          <div class="eyebrow">MISSION COMPLETE</div>
-          <h1>Demak, bizning <span class="name">hikoyamiz endi boshlanadi</span>. 🌷</h1>
-          <p class="sub">Birinchi uchrashuv — shunchaki boshlanish. Eng yaxshi suhbatlar, kulgular va chiroyli uchrashuvlar hali oldinda. Seni yana ko‘rish yoqimli bo‘lardi. ✨</p>
-          <button class="next show" onclick="location.reload()">Qaytadan o‘ynash ↻</button>
-        </div>
-      </section>
+<div id="adminApp" class="adminWrap hidden">
+  <div class="adminShell">
+    <div class="adminHead"><div><div class="brand">Love <em>Live Monitor</em> ♥</div><div class="tiny"><span class="liveDot"></span>Real-time javoblar</div></div><div class="love" id="adminCount">0 ta ishtirokchi</div></div>
+    <div class="adminGrid">
+      <aside class="sessionList" id="sessionList"><div class="empty">Hali hech kim quizni boshlamagan.</div></aside>
+      <main class="adminMain" id="adminMain"><div class="empty">Chap tomondan ishtirokchini tanlang.<br>U tanlagan javoblar shu yerda ketma-ket ko‘rinadi.</div></main>
     </div>
   </div>
+</div>
+<div class="app"><div class="shell">
+  <div class="header"><div class="brand">Bizning <em>Hikoyamiz</em> ♥</div><div class="status"><div class="meter"><i id="meter"></i></div><div class="love">Mehr <span id="love">0%</span></div></div></div>
+  <div id="toast" class="toast"></div>
 
+  <section class="page active" id="intro"><div class="tiny" id="connectionStatus">Onlayn sessiya tayyorlanmoqda…</div>
+    <div class="corner">01 <strong>/ 18</strong></div><div class="icon">💗</div><div class="eyebrow">FIRST CHAPTER</div>
+    <h1>Ba'zi hikoyalar <span class="accent">birinchi uchrashuvdan</span> boshlanadi.</h1>
+    <p class="sub">Bu oddiy test emas. Har bir tanlovingiz mehr indikatorini o‘zgartiradi, so‘ng esa sizning yuragingizdan yozilgan sirli javob saqlanadi. Oxirigacha boring… 💌</p>
+    <div class="inputRow"><input id="name" class="input" placeholder="Ismingizni yozing…" maxlength="24"/><button class="primary" id="start">Boshlash ✨</button></div>
+  </section>
+
+  <section class="page q" data-i="1"><div class="corner">02 <strong>/ 18</strong></div><div class="icon">👀</div><div class="eyebrow">FIRST IMPRESSION</div><h1>Meni birinchi ko‘rganingizda <span class="accent">ichingizdan nima o‘tdi?</span></h1><p class="sub">Birinchi taassurotni yashirmang… 😊</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Darrov qiziq tuyuldingiz 💗</span></button><button class="choice" data-love="7"><b>B</b><span>Yoqimli taassurot qoldirdingiz 🌷</span></button><button class="choice" data-love="6"><b>C</b><span>Hayajon sezdim 😳</span></button><button class="choice" data-love="3"><b>D</b><span>Avval kuzatib ko‘rdim 👀</span></button></div></section>
+
+  <section class="page q" data-i="2"><div class="corner">03 <strong>/ 18</strong></div><div class="icon">💬</div><div class="eyebrow">ENDLESS TALK</div><h1>Men bilan <span class="accent">oxirigacha gaplashishga</span> tayyormisiz?</h1><p class="sub">Suhbatimiz birgina “salom” bilan tugab qolmasin…</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Ha, gap tugamaguncha qolaman 💞</span></button><button class="choice" data-love="7"><b>B</b><span>Albatta, mavzu topamiz 😊</span></button><button class="choice" data-love="5"><b>C</b><span>Kayfiyatga qarab 🌙</span></button><button class="choice" data-love="2"><b>D</b><span>Hali bilmayman 🙈</span></button></div></section>
+
+  <section class="page q" data-i="3"><div class="corner">04 <strong>/ 18</strong></div><div class="icon">📱</div><div class="eyebrow">MESSAGE</div><h1>Telefoningizga mening <span class="accent">xabarim kelsa</span>, birinchi nima qilasiz?</h1><p class="sub">Faqat rostini tanlang 😌</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Darrov ochaman 💌</span></button><button class="choice" data-love="7"><b>B</b><span>Avval tabassum qilaman 😊</span></button><button class="choice" data-love="5"><b>C</b><span>Bo‘shaganimda javob beraman ✨</span></button><button class="choice" data-love="2"><b>D</b><span>Keyin ko‘raman 😄</span></button></div></section>
+
+  <section class="page q" data-i="4"><div class="corner">05 <strong>/ 18</strong></div><div class="icon">🌙</div><div class="eyebrow">LATE NIGHT</div><h1>Soat 23:00 bo‘lsa ham, <span class="accent">“yana 5 daqiqa”</span> deb gaplashasizmi?</h1><p class="sub">Ba'zi suhbatlar vaqtni unutdiradi…</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Ha, 5 daqiqa 1 soat bo‘lib ketadi 🌙</span></button><button class="choice" data-love="7"><b>B</b><span>Yana biroz gaplashamiz 💗</span></button><button class="choice" data-love="5"><b>C</b><span>Ertaga davom ettiramiz ☕</span></button><button class="choice" data-love="2"><b>D</b><span>Uyqu birinchi 😴</span></button></div></section>
+
+  <section class="page q" data-i="5"><div class="corner">06 <strong>/ 18</strong></div><div class="icon">🫶</div><div class="eyebrow">CARE</div><h1>Kayfiyatingiz tushib ketsa, men sizga <span class="accent">qanday dalda berishimni</span> xohlaysiz?</h1><p class="sub">Mehrning eng chiroyli tomoni — e'tibor.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Yonimda bo‘lib, tinglang 🤍</span></button><button class="choice" data-love="7"><b>B</b><span>Shirin gap bilan kuldiring 🌷</span></button><button class="choice" data-love="6"><b>C</b><span>Birga sayrga chiqamiz 🌸</span></button><button class="choice" data-love="3"><b>D</b><span>Biroz tinch qolay 🙂</span></button></div></section>
+
+  <section class="page q" data-i="6"><div class="corner">07 <strong>/ 18</strong></div><div class="icon">☕</div><div class="eyebrow">PERFECT DATE</div><h1>Birinchi haqiqiy uchrashuv uchun <span class="accent">qaysi variant</span> sizga yoqadi?</h1><p class="sub">Sizning ideal first date'ingizni tanlang.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Kafe + uzoq suhbat ☕</span></button><button class="choice" data-love="7"><b>B</b><span>Kechki sayr + musiqa 🌙</span></button><button class="choice" data-love="6"><b>C</b><span>Park + muzqaymoq 🍦</span></button><button class="choice" data-love="4"><b>D</b><span>Oddiy, lekin samimiy 😊</span></button></div></section>
+
+  <section class="page q" data-i="7"><div class="corner">08 <strong>/ 18</strong></div><div class="icon">⏰</div><div class="eyebrow">THE DATE</div><h1>Eng ko‘p beriladigan savol… <span class="accent">qachon ko‘rishamiz?</span> ❤️</h1><p class="sub">Bu safar yuragingizdagi javobni tanlang.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Imkon qadar tezroq 😍</span></button><button class="choice" data-love="7"><b>B</b><span>Bo‘sh vaqtimizni topamiz 💗</span></button><button class="choice" data-love="6"><b>C</b><span>Yaqin kunlarda bo‘lsa yaxshi 🌷</span></button><button class="choice" data-love="3"><b>D</b><span>Hali reja qilmaganman 😌</span></button></div></section>
+
+  <section class="page q" data-i="8"><div class="corner">09 <strong>/ 18</strong></div><div class="icon">🎵</div><div class="eyebrow">OUR SONG</div><h1>Agar bizning hikoyamizga <span class="accent">bitta qo‘shiq</span> mos kelsa, qanday bo‘lardi?</h1><p class="sub">Kayfiyatingizga eng yaqinini tanlang.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Romantik va sokin 🎶</span></button><button class="choice" data-love="7"><b>B</b><span>Quvnoq va shirin 💃</span></button><button class="choice" data-love="6"><b>C</b><span>Sirli va chiroyli ✨</span></button><button class="choice" data-love="4"><b>D</b><span>Bizga hali qo‘shiq kerak 😄</span></button></div></section>
+
+  <section class="page q" data-i="9"><div class="corner">10 <strong>/ 18</strong></div><div class="icon">😂</div><div class="eyebrow">LAUGHTER</div><h1>Men bilan eng ko‘p <span class="accent">nima sababdan kulishingiz</span> mumkin?</h1><p class="sub">Chunki kulgi ham yaqinlashtiradi.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Hazillarimdan 😂</span></button><button class="choice" data-love="7"><b>B</b><span>Bir-birimizni mazax qilishdan 😄</span></button><button class="choice" data-love="6"><b>C</b><span>G‘alati suhbatlarimizdan 🤭</span></button><button class="choice" data-love="4"><b>D</b><span>Hali sabab topamiz 😌</span></button></div></section>
+
+  <section class="page q" data-i="10"><div class="corner">11 <strong>/ 18</strong></div><div class="icon">🌷</div><div class="eyebrow">COMPLIMENT</div><h1>Mendan eshitishni <span class="accent">eng xohlaydigan gapingiz</span> qaysi?</h1><p class="sub">Birgina gap ba'zan butun kunni chiroyli qiladi.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>“Bugun juda chiroyli ko‘rinyapsiz.” 🌷</span></button><button class="choice" data-love="7"><b>B</b><span>“Siz bilan gaplashish yoqadi.” 💗</span></button><button class="choice" data-love="6"><b>C</b><span>“Siz menga muhim odamsiz.” 🤍</span></button><button class="choice" data-love="4"><b>D</b><span>O‘zim topaman 😊</span></button></div></section>
+
+  <section class="page q" data-i="11"><div class="corner">12 <strong>/ 18</strong></div><div class="icon">🎁</div><div class="eyebrow">SMALL MOMENTS</div><h1>Siz uchun eng yoqimli <span class="accent">kichkina e'tibor</span> qaysi?</h1><p class="sub">Katta sovg‘adan ko‘ra mayda detallar haqida.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>“Uyga yetib oldingizmi?” degan xabar 💌</span></button><button class="choice" data-love="7"><b>B</b><span>Sevimli narsamni eslab qolish 🎀</span></button><button class="choice" data-love="6"><b>C</b><span>Sababsiz kichik sovg‘a 🎁</span></button><button class="choice" data-love="4"><b>D</b><span>Samimiy tabassum 😊</span></button></div></section>
+
+  <section class="page q" data-i="12"><div class="corner">13 <strong>/ 18</strong></div><div class="icon">📸</div><div class="eyebrow">MEMORIES</div><h1>Birga qoladigan birinchi xotiramizni <span class="accent">qanday tasavvur qilasiz?</span></h1><p class="sub">Xotira hali bo‘lmasdan turib ham chiroyli bo‘lishi mumkin.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Uzoq suhbat bilan ☕</span></button><button class="choice" data-love="7"><b>B</b><span>Birga kulgan kun bilan 😂</span></button><button class="choice" data-love="6"><b>C</b><span>Chiroyli rasm bilan 📸</span></button><button class="choice" data-love="4"><b>D</b><span>Tasodifan paydo bo‘lsin ✨</span></button></div></section>
+
+  <section class="page q" data-i="13"><div class="corner">14 <strong>/ 18</strong></div><div class="icon">🕊️</div><div class="eyebrow">TRUST</div><h1>Men sizga bir sir aytsam, <span class="accent">uni saqlaysizmi?</span></h1><p class="sub">Ishonch — eng chiroyli yaqinliklardan biri.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Albatta, bu bizning sirimiz 🤍</span></button><button class="choice" data-love="7"><b>B</b><span>Ha, ishonchingizni qadrlayman 💗</span></button><button class="choice" data-love="5"><b>C</b><span>Albatta, agar jiddiy bo‘lsa 😌</span></button><button class="choice" data-love="3"><b>D</b><span>Savolga savol bilan javob beraman 😄</span></button></div></section>
+
+  <section class="page q" data-i="14"><div class="corner">15 <strong>/ 18</strong></div><div class="icon">💭</div><div class="eyebrow">THOUGHTS</div><h1>Bir kun men javob bermay qolsam, <span class="accent">meni sog‘inasizmi?</span></h1><p class="sub">Faqat rostini tanlang… 👀</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Ha, nima bo‘lganini so‘rayman 🥺</span></button><button class="choice" data-love="7"><b>B</b><span>Albatta, xabar kutaman 💗</span></button><button class="choice" data-love="6"><b>C</b><span>Birozdan keyin yozaman 🙂</span></button><button class="choice" data-love="3"><b>D</b><span>O‘zi yozib qolsa kerak 😄</span></button></div></section>
+
+  <section class="page q" data-i="15"><div class="corner">16 <strong>/ 18</strong></div><div class="icon">💞</div><div class="eyebrow">HEART SIGNAL</div><h1>Sizningcha, bizning o‘rtamizdagi <span class="accent">chemistry</span> qanday?</h1><p class="sub">Bu savolda yurakning fikri muhim.</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Juda kuchli 🔥</span></button><button class="choice" data-love="7"><b>B</b><span>Shirin va tabiiy 💗</span></button><button class="choice" data-love="6"><b>C</b><span>Asta-sekin kuchayadi 🌷</span></button><button class="choice" data-love="4"><b>D</b><span>Hali sir 🤫</span></button></div></section>
+
+  <section class="page q" data-i="16" id="secretQuestion"><div class="corner">17 <strong>/ 18</strong></div><div class="icon">🔐</div><div class="eyebrow">SECRET MESSAGE</div><h1>Endi tayyor javobsiz: <span class="accent">menga bitta samimiy gap</span> yozing…</h1><p class="sub">Bu javob faqat sizning yuragingizdan chiqadi. 💌</p><div class="textBox"><textarea id="secretText" class="textArea" maxlength="240" placeholder="Masalan: Siz bilan gaplashish menga juda yoqadi…"></textarea><div class="charCount"><span id="charCount">0</span>/240</div><button class="primary" id="sendSecret">Yuragimdan yozdim 💗</button></div></section>
+
+  <section class="page q" data-i="17"><div class="corner">18 <strong>/ 18</strong></div><div class="icon">❤️</div><div class="eyebrow">THE REAL QUESTION</div><h1>Va nihoyat… <span class="accent">meni sevasizmi?</span></h1><p class="sub">Shoshilmang. Bu safar yuragingizga quloq soling. ❤️</p><div class="choices"><button class="choice" data-love="8"><b>A</b><span>Ha… yuragim “ha” deyapti ❤️</span></button><button class="choice" data-love="7"><b>B</b><span>Juda ham 💗</span></button><button class="choice" data-love="6"><b>C</b><span>Mehrim bor, aytishga uyalyapman 🙈</span></button><button class="choice" data-love="3"><b>D</b><span>Bu sirni biroz saqlayman 🤭</span></button></div></section>
+
+
+  <section class="bonusPage" id="mysteryBonus"><div class="corner">BONUS <strong>01</strong></div><div class="icon">🎁</div><div class="eyebrow">MYSTERY MOMENT</div><h1>Qaysi <span class="accent">yashirin quti</span> sizni chaqiryapti?</h1><p class="sub">Bittasini tanlang. Ichida siz uchun kichik syurpriz bor… ✨</p><div class="boxGrid"><button class="mysteryBox" data-bonus="5"><div class="gift">🎁</div><small>Sirli quti №1</small></button><button class="mysteryBox" data-bonus="8"><div class="gift">💝</div><small>Sirli quti №2</small></button><button class="mysteryBox" data-bonus="6"><div class="gift">🎀</div><small>Sirli quti №3</small></button></div><div id="mysteryResult" class="bonusResult"></div></section>
+
+  <section class="bonusPage" id="heartGame"><div class="corner">BONUS <strong>02</strong></div><div class="icon">💓</div><div class="eyebrow">HEART HUNT</div><h1>15 soniyada <span class="accent">7 ta yurakni</span> toping!</h1><p class="sub">Yuraklar turli joylarda paydo bo‘ladi. Ularni bosib yig‘ing. 🫶</p><div class="gameArena" id="gameArena"></div><div class="gameHud"><span>Topildi: <b id="gameScore">0</b>/7</span><span>Vaqt: <b id="gameTime">15</b>s</span></div><button class="primary" id="startGame">O‘yinni boshlash 💗</button><div id="gameResult" class="bonusResult"></div></section>
+
+  <section class="bonusPage" id="secretLevel"><div class="corner">BONUS <strong>03</strong></div><div class="icon">🔓</div><div class="eyebrow">SECRET LEVEL</div><h1><span class="accent">70% Mehr</span> ga yetdingiz!</h1><p class="sub">Sizga yashirin savol ochildi. Bu bosqichda javob yurakdan chiqishi kerak.</p><div class="secretUnlock"><div class="unlockCode">LOVE ✦ 7 0 ✦</div><p class="mini">“Menga yana bir bor imkon berasizmi?”</p><div class="choices" style="width:min(700px,100%);margin:14px auto 0"><button class="choice" data-extra="6"><b>A</b><span>Ha, yana va yana ❤️</span></button><button class="choice" data-extra="5"><b>B</b><span>Albatta, sababini bilasiz 💗</span></button><button class="choice" data-extra="3"><b>C</b><span>Buni vaqt ko‘rsatadi 🌙</span></button></div></div></section>
+
+  <section class="bonusPage" id="storyReveal"><div class="corner">FINAL <strong>STORY</strong></div><div class="icon">📖</div><div class="eyebrow">YOUR CHAPTER</div><h1>Sizning <span class="accent">kichik hikoyangiz</span></h1><div class="storyCard"><div class="storyLine" id="storyLine"></div><div class="memoryCard"><div class="eyebrow">MEMORY CARD</div><div class="memoryGrid"><div class="memoryStat"><b>ISM</b><span id="memName">—</span></div><div class="memoryStat"><b>MEHR</b><span id="memLove">—</span></div><div class="memoryStat"><b>JAVOBLAR</b><span id="memAnswers">—</span></div><div class="memoryStat"><b>UCHRASHUV</b><span>First Meeting ✨</span></div></div><button class="copyBtn" id="copyMemory">Memory Card'ni nusxalash 📋</button></div></div></section>
+  <section class="page" id="result"><div class="corner">LOVE <strong>RESULT</strong></div><div class="resultBox"><div class="scoreCard"><div class="eyebrow">YOUR HEART SCORE</div><div class="score" id="finalScore">0%</div><div class="barline"><i id="finalBar"></i></div><p class="mini" id="scoreText">Natija tayyorlanmoqda…</p><button class="primary" id="again">Qaytadan ✨</button></div><div class="letter"><div class="icon">💗</div><h2 id="letterTitle">Bizning hikoyamiz…</h2><p id="letterText">Ba'zi uchrashuvlar tasodifdek boshlanadi, ammo qalbda uzoq qoladi. Bugun esa sizning tanlovlaringiz kichik bir hikoyaga aylandi.</p></div></div></section>
+</div></div>
 <script>
-  const pages=[...document.querySelectorAll('.page')];
-  const bar=document.getElementById('bar');
-  const error=document.getElementById('error');
-  let current=0;
-  const messages=[
-    'ERROR 404: Noto‘g‘ri javob topildi 😭',
-    'SYSTEM: Bu variant birinchi uchrashuvga mos kelmadi 😂',
-    'WARNING: Romantiklik yetarli emas 🚨',
-    'ERROR: Yurak hali bunga rozi bo‘lmadi 💔',
-    'ACCESS DENIED: Yaxshiroq variantni bosing 😌'
+const pages=[...document.querySelectorAll('.page, .bonusPage')];
+const questions=[...document.querySelectorAll('.q')];
+const QUESTION_TOTAL=18;
+const meter=document.getElementById('meter'); const loveEl=document.getElementById('love'); const toast=document.getElementById('toast');
+let current=0, score=0, maxScore=0, displayName='', bonusStage=0;
+const bonusIds=['mysteryBonus','heartGame','secretLevel','storyReveal'];
+questions.forEach(q=>q.querySelectorAll('.choice').forEach(c=>maxScore+=Number(c.dataset.love)));
+// Maximum is based on one best answer from each question.
+maxScore=questions.reduce((s,q)=>{const cs=[...q.querySelectorAll('.choice')].map(c=>+c.dataset.love);return cs.length?s+Math.max(...cs):s},0)+14;
+function showPage(index){pages.forEach((p,i)=>p.classList.toggle('active',i===index));current=index; updateHeader();}
+function updateHeader(){const pct=Math.min(100,Math.round(score/maxScore*100));loveEl.textContent=pct+'%';meter.style.width=Math.max(7,Math.min(100,(current<=0?7:(current<=QUESTION_TOTAL?current/QUESTION_TOTAL*100:100))))+'%';}
+function notify(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1200)}
+function particles(x,y,n=9){const emojis=['💗','💞','✨','🌸','💕'];for(let i=0;i<n;i++){const p=document.createElement('div');p.className='particle';p.textContent=emojis[Math.floor(Math.random()*emojis.length)];p.style.left=(x+(Math.random()-.5)*70)+'px';p.style.top=(y+(Math.random()-.5)*30)+'px';document.body.appendChild(p);setTimeout(()=>p.remove(),1000)}}
+function dove(){const d=document.createElement('div');d.className='dove';d.textContent='🕊️';d.style.top=(15+Math.random()*55)+'vh';d.style.left='-6vw';document.body.appendChild(d);setTimeout(()=>d.remove(),3600)}
+function hearts(){const b=document.createElement('div');b.className='heartBurst';for(let i=0;i<12;i++){const s=document.createElement('span');s.textContent=['💗','💕','💞','✨'][i%4];const a=Math.PI*2*(i/18),r=90+Math.random()*80;s.style.setProperty('--x',Math.cos(a)*r+'px');s.style.setProperty('--y',Math.sin(a)*r+'px');b.appendChild(s)}document.body.appendChild(b);setTimeout(()=>b.remove(),1200)}
+function goNext(){showPage(current+1);if(current>=1){dove();hearts()}}
+function goBonus(id){const el=document.getElementById(id);if(!el)return; pages.forEach(p=>p.classList.remove('active')); el.classList.add('active'); current=pages.indexOf(el); if(id!=='result'){dove();hearts()} }
+function backFromBonus(){const qIndex=Math.max(0, current-1); showPage(qIndex);}
+function goToFinalStory(){goBonus('storyReveal'); buildStory();}
+const FB_CONFIG = {
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.firebasestorage.app",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+let fbDb=null, sessionRef=null, sessionId=null, answers=[];
+function firebaseReady(){return Object.values(FB_CONFIG).every(v=>v && !v.startsWith('YOUR_'));}
+function setupFirebase(){
+  if(!firebaseReady()){
+    document.getElementById('connectionStatus').textContent='Preview rejimi — Firebase sozlamasi kiritilmagan.';
+    return false;
+  }
+  try{
+    const app=window.__fb.initializeApp(FB_CONFIG); fbDb=window.__fb.getDatabase(app);
+    document.getElementById('connectionStatus').textContent='Live rejim ulangan ✓'; return true;
+  }catch(e){console.error(e);document.getElementById('connectionStatus').textContent='Ulanishda xatolik';return false;}
+}
+setupFirebase();
+function initSession(){
+  sessionId=(crypto.randomUUID?crypto.randomUUID():'s-'+Date.now()+Math.random().toString(16).slice(2));
+  answers=[];
+  if(!fbDb) return;
+  sessionRef=window.__fb.ref(fbDb,'loveSessions/'+sessionId);
+  return window.__fb.set(sessionRef,{name:displayName,score:0,percent:0,startedAt:Date.now(),status:'active',answers:{}});
+}
+
+document.getElementById('start').onclick=async()=>{displayName=document.getElementById('name').value.trim()||'Siz';document.getElementById('intro').querySelector('.sub').textContent=`${displayName}, tayyormisiz? Har bir javob hikoyamizdagi mehr indikatoriga ta'sir qiladi. 💌`;score=0;updateHeader();showPage(1);await initSession()};
+const secretText=document.getElementById('secretText');
+const charCount=document.getElementById('charCount');
+secretText?.addEventListener('input',()=>{charCount.textContent=secretText.value.length});
+
+questions.forEach((q,qi)=>q.querySelectorAll('.choice').forEach(btn=>btn.onclick=async()=>{
+  if(btn.classList.contains('selected')) return;
+  q.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');
+  const add=Number(btn.dataset.love);score+=add;
+  const pct=Math.min(100,Math.round(score/maxScore*100));loveEl.textContent=pct+'%';
+  const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,11);
+  answers.push({question:qi+1,questionText:q.querySelector('h1')?.innerText||'',answer:btn.innerText.trim(),love:add,time:Date.now()});
+  if(sessionRef){
+    await window.__fb.update(sessionRef,{score,percent:pct,answers:{[qi+1]:answers[answers.length-1]},lastUpdatedAt:Date.now()});
+  }
+  if(add>=11) notify('Yurak signali kuchaydi 💗'); else notify('Mehr indikatori yangilandi ✨');
+  setTimeout(async()=>{
+    if(qi===5){ goBonus('mysteryBonus'); return; }
+    if(qi===10){ goBonus('heartGame'); return; }
+    if(qi===14){ goBonus('secretLevel'); return; }
+    if(qi===questions.length-1){ goBonus('storyReveal'); buildStory(); return; }
+    goNext();
+  },650);
+}));
+
+document.getElementById('sendSecret')?.addEventListener('click',async()=>{
+  const text=secretText.value.trim();
+  if(!text){notify('Avval yuragingizdan bir narsa yozing 💌'); secretText.focus(); return;}
+  const add=14; score+=add; const pct=Math.min(100,Math.round(score/maxScore*100)); loveEl.textContent=pct+'%';
+  answers.push({question:17,questionText:'Endi tayyor javobsiz: menga bitta samimiy gap yozing…',answer:text,love:add,time:Date.now(),type:'text'});
+  const r=secretText.getBoundingClientRect(); particles(r.left+r.width/2,r.top+r.height/2,18); dove(); hearts(); notify('Yurakdan yozilgan javob qabul qilindi 💗');
+  if(sessionRef) await window.__fb.update(sessionRef,{score,percent:pct,answers:{17:answers[answers.length-1]},lastUpdatedAt:Date.now()});
+  setTimeout(()=>goNext(),800);
+});
+
+
+// Mystery box
+let mysteryChosen=false;
+document.querySelectorAll('.mysteryBox').forEach(btn=>btn.addEventListener('click',async()=>{
+  if(mysteryChosen)return; mysteryChosen=true; const add=Number(btn.dataset.bonus); score+=add;
+  const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,22);dove();hearts();
+  document.getElementById('mysteryResult').textContent=['Sizning sirli qutingizdan 💗 “Siz kutganingizdan ham chiroyliroq davom bor.”','💝 Bonus ochildi: suhbatimiz uchun yana bir imkon!','🎀 Yashirin tabassum topildi. Hikoya davom etsin…'][Math.floor(Math.random()*3)];
+  notify('Bonus Mehr +'+add+'% 💞');
+  if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),bonusMystery:add,lastUpdatedAt:Date.now()});
+  setTimeout(()=>{goBonus('heartGame');},1400);
+}));
+
+// Heart hunt mini-game
+let gameStarted=false, gameTimer=null, gameHits=0, gameLeft=15;
+function spawnTapHeart(){const arena=document.getElementById('gameArena');if(!arena)return;const h=document.createElement('div');h.className='tapHeart';h.textContent=['💗','💖','💕','💞'][Math.floor(Math.random()*4)];h.style.left=(5+Math.random()*88)+'%';h.style.top=(8+Math.random()*78)+'%';h.onclick=()=>{if(!gameStarted)return;gameHits++;document.getElementById('gameScore').textContent=gameHits;particles(h.getBoundingClientRect().left,h.getBoundingClientRect().top,8);h.remove();if(gameHits<7)spawnTapHeart();else finishHeartGame(true)};arena.appendChild(h)}
+function startHeartGame(){if(gameStarted)return;gameStarted=true;gameHits=0;gameLeft=15;document.getElementById('gameScore').textContent=0;document.getElementById('gameTime').textContent=15;document.getElementById('gameResult').textContent='';document.getElementById('startGame').disabled=true;document.getElementById('startGame').textContent='Toping… 💗';for(let i=0;i<2;i++)spawnTapHeart();gameTimer=setInterval(()=>{gameLeft--;document.getElementById('gameTime').textContent=gameLeft;if(gameLeft<=0)finishHeartGame(false)},1000)}
+async function finishHeartGame(won){if(!gameStarted)return;gameStarted=false;clearInterval(gameTimer);document.querySelectorAll('.tapHeart').forEach(x=>x.remove());const add=won?10:4;score+=add;document.getElementById('gameResult').textContent=won?'Barcha yuraklar topildi! 💖 Bonus Mehr +10%':'Vaqt tugadi, ammo yuragingiz +4% oldi 💗';document.getElementById('startGame').disabled=false;document.getElementById('startGame').textContent='Davom etish ✨';dove();hearts();notify('Heart Hunt tugadi 💞');if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),heartGame:{hits:gameHits,won,bonus:add},lastUpdatedAt:Date.now()});setTimeout(()=>goNext(),1200)}
+document.getElementById('startGame')?.addEventListener('click',startHeartGame);
+
+// Secret level
+const secretLevelEl=document.getElementById('secretLevel');secretLevelEl?.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',async()=>{secretLevelEl.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');const add=Number(btn.dataset.extra);score+=add;const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,16);notify('SECRET LEVEL +'+add+'% ❤️');if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),secretLevel:btn.innerText.trim(),lastUpdatedAt:Date.now()});setTimeout(()=>{goBonus('storyReveal');buildStory();},800)}));
+
+function buildStory(){
+  const pct=Math.min(100,Math.round(score/maxScore*100));
+  document.getElementById('memName').textContent=displayName||'Siz'; document.getElementById('memLove').textContent=pct+'%'; document.getElementById('memAnswers').textContent=answers.length+' ta tanlov';
+  const texts=[
+    `${displayName||'Siz'} birinchi uchrashuvdan boshlab bu hikoyaga ozgina qiziqish, ko‘p samimiyat va juda ko‘p tabassum qo‘shdi.`,
+    `Bu hikoya oddiy savollardan boshlandi. Ammo har bir javob bilan mehr oshdi, yuraklar yaqinlashdi va “qachon ko‘rishamiz?” savoli o‘z-o‘zidan eng muhim sahifalardan biriga aylandi.`,
+    `Ba'zan birinchi uchrashuvning eng chiroyli qismi — hali noma'lum bo‘lgan davomidir. Siz esa bugun o‘sha davomga birinchi sahifani yozdingiz. ❤️`
   ];
+  const el=document.getElementById('storyLine');el.style.opacity='0';setTimeout(()=>{el.textContent=texts[pct>90?2:pct>70?1:0];el.style.transition='opacity .8s';el.style.opacity='1'},150);
+  if(sessionRef) window.__fb.update(sessionRef,{status:'finished',finishedAt:Date.now(),score,percent:pct,answerCount:answers.length,storyShown:true,lastUpdatedAt:Date.now()});
+}
+document.getElementById('copyMemory')?.addEventListener('click',async()=>{const txt=`FIRST MEETING\n${displayName||'Siz'}\nMehr: ${Math.min(100,Math.round(score/maxScore*100))}%\nJavoblar: ${answers.length}`;try{await navigator.clipboard.writeText(txt);notify('Memory Card nusxalandi 📋')}catch(e){notify('Nusxalash brauzer tomonidan bloklandi')} });
 
-  function showPage(i){
-    pages.forEach((p,idx)=>p.classList.toggle('active',idx===i));
-    bar.style.width=((Math.min(i+1,5)/5)*100)+'%';
-    current=i;
-  }
-  function sparkle(emoji='💗', x=innerWidth/2,y=innerHeight/2){
-    const s=document.createElement('div'); s.className='sparkle'; s.textContent=emoji; s.style.left=x+'px';s.style.top=y+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),950)
-  }
-  function correct(btn){
-    btn.classList.add('correct'); sparkle('💚',btn.getBoundingClientRect().left+btn.offsetWidth/2,btn.getBoundingClientRect().top+btn.offsetHeight/2);
-    if(btn.id==='finalCorrect'){
-      setTimeout(()=>{ document.getElementById('lastQuestion').style.display='none'; document.getElementById('result').style.display='block'; bar.style.width='100%'; },520);
-    } else {
-      setTimeout(()=>showPage(current+1),520);
-    }
-  }
-  function wrong(btn){
-    btn.classList.remove('wrong'); void btn.offsetWidth; btn.classList.add('wrong');
-    error.textContent=messages[Math.floor(Math.random()*messages.length)]; error.classList.add('show');
-    setTimeout(()=>error.classList.remove('show'),1100);
-    sparkle('❌',btn.getBoundingClientRect().left+btn.offsetWidth/2,btn.getBoundingClientRect().top+btn.offsetHeight/2);
-    const parent=btn.closest('.choices') || document.getElementById('zone');
-    const area=parent.getBoundingClientRect();
-    if(parent.classList.contains('wrong-zone') || Math.random()<0.7){
-      const maxX=Math.max(10,area.width-btn.offsetWidth-10), maxY=Math.max(10,area.height-btn.offsetHeight-10);
-      btn.style.left=(Math.random()*maxX)+'px'; btn.style.top=(Math.random()*maxY)+'px'; btn.style.right='auto'; btn.style.bottom='auto';
-    }
-  }
-  document.querySelectorAll('.btn').forEach(btn=>btn.addEventListener('click',()=>btn.dataset.correct==='true'?correct(btn):wrong(btn)));
-
-  const flo=document.getElementById('floaters');
-  ['💗','✨','🌸','💕','💫','🎀','🦋'].forEach((e,i)=>{for(let j=0;j<4;j++){const x=document.createElement('div');x.className='bg-heart';x.textContent=e;x.style.left=(i*14+Math.random()*10)+'vw';x.style.animationDelay=(-Math.random()*8)+'s';x.style.animationDuration=(7+Math.random()*7)+'s';x.style.fontSize=(14+Math.random()*18)+'px';flo.appendChild(x)}});
+function renderAdmin(data){
+  const entries=Object.entries(data||{}).sort((a,b)=>(b[1].lastUpdatedAt||0)-(a[1].lastUpdatedAt||0));
+  document.getElementById('adminCount').textContent=entries.length+' ta ishtirokchi';
+  const list=document.getElementById('sessionList');
+  if(!entries.length){list.innerHTML='<div class="empty">Hali hech kim quizni boshlamagan.</div>';document.getElementById('adminMain').innerHTML='<div class="empty">Quizni kimdir ochib boshlaganda javoblar shu yerda ko‘rinadi.</div>';return;}
+  list.innerHTML=entries.map(([id,x])=>`<button class="sessionItem" data-id="${id}"><strong>${escapeHtml(x.name||'Nomaʼlum')}</strong><small>${x.status==='finished'?'Tugagan':'Jonli'} · ${x.percent||0}% · ${Object.keys(x.answers||{}).length}/18</small></button>`).join('');
+  list.querySelectorAll('.sessionItem').forEach(b=>b.onclick=()=>showAdminSession(b.dataset.id,data));
+  if(!window.selectedAdmin || !data[window.selectedAdmin]) window.selectedAdmin=entries[0][0];
+  showAdminSession(window.selectedAdmin,data);
+}
+function escapeHtml(v){return String(v).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));}
+function showAdminSession(id,data){window.selectedAdmin=id;const x=data[id];if(!x)return;document.querySelectorAll('.sessionItem').forEach(b=>b.classList.toggle('active',b.dataset.id===id));const ans=Object.values(x.answers||{}).sort((a,b)=>a.question-b.question);document.getElementById('adminMain').innerHTML=`<div class="eyebrow">LIVE PARTICIPANT</div><h1 style="font-size:52px;margin-bottom:4px">${escapeHtml(x.name||'Nomaʼlum')}</h1><div class="liveScore">${x.percent||0}%</div><div class="barline"><i style="width:${Math.min(100,x.percent||0)}%"></i></div><p class="mini">Holat: ${x.status==='finished'?'Quiz yakunlangan ✅':'Hozir javob bermoqda…'} · Javoblar: ${ans.length}/18</p><div style="margin-top:18px">${ans.length?ans.map(a=>`<div class="answerRow"><div class="answerNo">#${a.question}</div><div class="answerText"><b>${escapeHtml(a.questionText)}</b><br>${escapeHtml(a.answer)}</div><div class="answerLove">+${a.love}%</div></div>`).join(''):'<div class="empty">Hali javob tanlanmagan.</div>'}</div>`}
+function launchAdmin(){
+  document.querySelector('.app').classList.add('hidden');document.getElementById('adminApp').classList.remove('hidden');
+  if(!firebaseReady()){document.getElementById('adminMain').innerHTML='<div class="empty"><b>Firebase ulanishi kerak.</b><br>HTML ichidagi FB_CONFIG qiymatlarini Firebase loyihangiz bilan almashtiring.</div>';return;}
+  const app=window.__fb.initializeApp(FB_CONFIG,'adminApp'); const db=window.__fb.getDatabase(app);
+  window.__fb.onValue(window.__fb.ref(db,'loveSessions'),snap=>renderAdmin(snap.val()));
+}
+if(new URLSearchParams(location.search).get('admin')==='1') launchAdmin();
+document.getElementById('again').onclick=()=>location.reload();
+['💗','✨','🌸','💕','💫','🦋'].forEach((e,i)=>{for(let j=0;j<3;j++){const f=document.createElement('div');f.className='float';f.textContent=e;f.style.left=(i*17+Math.random()*8)+'vw';f.style.animationDelay=(-Math.random()*9)+'s';f.style.animationDuration=(7+Math.random()*7)+'s';f.style.fontSize=(14+Math.random()*16)+'px';document.getElementById('floats').appendChild(f)}});
+updateHeader();
 </script>
 </body>
 </html>
