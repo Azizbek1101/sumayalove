@@ -441,17 +441,33 @@ async function startQuiz(){
   try { await initSession(); }
   catch(e) { console.error('Session init:',e); }
 }
+/* Reliable tap handling for mobile: click alone can be swallowed right
+   after an input's on-screen keyboard closes / the layout reflows, so we
+   bind both click and touchend and debounce to avoid firing twice. */
+function addTap(el,handler){
+  if(!el) return;
+  let lastFire=0;
+  const fire=(e)=>{
+    const now=Date.now();
+    if(now-lastFire<450) return;
+    lastFire=now;
+    handler(e);
+  };
+  el.addEventListener('click',fire);
+  el.addEventListener('touchend',(e)=>{ e.preventDefault(); fire(e); },{passive:false});
+}
+
 const nameInput=document.getElementById('name');
-if(nameInput) nameInput.addEventListener('keydown',(e)=>{if(e.key==='Enter'){e.preventDefault();startQuiz();}});
+if(nameInput) nameInput.addEventListener('keydown',(e)=>{if(e.key==='Enter'){e.preventDefault();nameInput.blur();startQuiz();}});
 const startBtn=document.getElementById('start');
-if(startBtn) startBtn.addEventListener('click',startQuiz);
+addTap(startBtn,startQuiz);
 const secretText=document.getElementById('secretText');
 const charCount=document.getElementById('charCount');
 secretText?.addEventListener('input',()=>{charCount.textContent=secretText.value.length});
 
 questions.forEach((q,qi)=>{
   q.querySelectorAll('.choice').forEach(btn=>{
-    btn.addEventListener('click',async()=>{
+    addTap(btn,async()=>{
       if(btn.classList.contains('selected')) return;
       q.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
       btn.classList.add('selected');
@@ -498,7 +514,7 @@ questions.forEach((q,qi)=>{
   });
 });
 
-document.getElementById('sendSecret')?.addEventListener('click',async()=>{
+addTap(document.getElementById('sendSecret'),async()=>{
   const text=secretText.value.trim();
   if(!text){notify('Avval yuragingizdan bir narsa yozing 💌'); secretText.focus(); return;}
   const add=14; score+=add; const pct=Math.min(100,Math.round(score/maxScore*100)); loveEl.textContent=pct+'%';
@@ -512,7 +528,7 @@ document.getElementById('sendSecret')?.addEventListener('click',async()=>{
 // Mystery box
 let mysteryChosen=false;
 document.querySelectorAll('.mysteryBox').forEach(btn=>{
-  btn.addEventListener('click',async()=>{
+  addTap(btn,async()=>{
     if(mysteryChosen)return; mysteryChosen=true; const add=Number(btn.dataset.bonus); score+=add;
     const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,22);dove();hearts();
     document.getElementById('mysteryResult').textContent=['Sizning sirli qutingizdan 💗 “Siz kutganingizdan ham chiroyliroq davom bor.”','💝 Bonus ochildi: suhbatimiz uchun yana bir imkon!','🎀 Yashirin tabassum topildi. Hikoya davom etsin…'][Math.floor(Math.random()*3)];
@@ -524,14 +540,14 @@ document.querySelectorAll('.mysteryBox').forEach(btn=>{
 
 // Heart hunt mini-game
 let gameStarted=false, gameTimer=null, gameHits=0, gameLeft=15;
-function spawnTapHeart(){const arena=document.getElementById('gameArena');if(!arena)return;const h=document.createElement('div');h.className='tapHeart';h.textContent=['💗','💖','💕','💞'][Math.floor(Math.random()*4)];h.style.left=(5+Math.random()*88)+'%';h.style.top=(8+Math.random()*78)+'%';h.addEventListener('click',()=>{if(!gameStarted)return;gameHits++;document.getElementById('gameScore').textContent=gameHits;particles(h.getBoundingClientRect().left,h.getBoundingClientRect().top,8);h.remove();if(gameHits<7)spawnTapHeart();else finishHeartGame(true)});arena.appendChild(h)}
+function spawnTapHeart(){const arena=document.getElementById('gameArena');if(!arena)return;const h=document.createElement('div');h.className='tapHeart';h.textContent=['💗','💖','💕','💞'][Math.floor(Math.random()*4)];h.style.left=(5+Math.random()*88)+'%';h.style.top=(8+Math.random()*78)+'%';addTap(h,()=>{if(!gameStarted)return;gameHits++;document.getElementById('gameScore').textContent=gameHits;particles(h.getBoundingClientRect().left,h.getBoundingClientRect().top,8);h.remove();if(gameHits<7)spawnTapHeart();else finishHeartGame(true)});arena.appendChild(h)}
 function startHeartGame(){if(gameStarted)return;gameStarted=true;gameHits=0;gameLeft=15;document.getElementById('gameScore').textContent=0;document.getElementById('gameTime').textContent=15;document.getElementById('gameResult').textContent='';document.getElementById('startGame').disabled=true;document.getElementById('startGame').textContent='Toping… 💗';for(let i=0;i<2;i++)spawnTapHeart();gameTimer=setInterval(()=>{gameLeft--;document.getElementById('gameTime').textContent=gameLeft;if(gameLeft<=0)finishHeartGame(false)},1000)}
 async function finishHeartGame(won){if(!gameStarted)return;gameStarted=false;clearInterval(gameTimer);document.querySelectorAll('.tapHeart').forEach(x=>x.remove());const add=won?10:4;score+=add;document.getElementById('gameResult').textContent=won?'Barcha yuraklar topildi! 💖 Bonus Mehr +10%':'Vaqt tugadi, ammo yuragingiz +4% oldi 💗';document.getElementById('startGame').disabled=false;document.getElementById('startGame').textContent='Davom etish ✨';dove();hearts();notify('Heart Hunt tugadi 💞');if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),heartGame:{hits:gameHits,won,bonus:add},lastUpdatedAt:Date.now()});setTimeout(()=>goNext(),1200)}
-document.getElementById('startGame')?.addEventListener('click',startHeartGame);
+addTap(document.getElementById('startGame'),startHeartGame);
 
 // Secret level
 const secretLevelEl=document.getElementById('secretLevel');secretLevelEl?.querySelectorAll('.choice').forEach(btn=>{
-  btn.addEventListener('click',async()=>{secretLevelEl.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');const add=Number(btn.dataset.extra);score+=add;const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,16);notify('SECRET LEVEL +'+add+'% ❤️');if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),secretLevel:btn.innerText.trim(),lastUpdatedAt:Date.now()});setTimeout(()=>{goBonus('storyReveal');buildStory();},800)});
+  addTap(btn,async()=>{secretLevelEl.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');const add=Number(btn.dataset.extra);score+=add;const r=btn.getBoundingClientRect();particles(r.left+r.width/2,r.top+r.height/2,16);notify('SECRET LEVEL +'+add+'% ❤️');if(sessionRef) await window.__fb.update(sessionRef,{score,percent:Math.min(100,Math.round(score/maxScore*100)),secretLevel:btn.innerText.trim(),lastUpdatedAt:Date.now()});setTimeout(()=>{goBonus('storyReveal');buildStory();},800)});
 });
 
 function buildStory(){
@@ -545,7 +561,7 @@ function buildStory(){
   const el=document.getElementById('storyLine');el.style.opacity='0';setTimeout(()=>{el.textContent=texts[pct>90?2:pct>70?1:0];el.style.transition='opacity .8s';el.style.opacity='1'},150);
   if(sessionRef) window.__fb.update(sessionRef,{status:'finished',finishedAt:Date.now(),score,percent:pct,answerCount:answers.length,storyShown:true,lastUpdatedAt:Date.now()});
 }
-document.getElementById('copyMemory')?.addEventListener('click',async()=>{const txt=`FIRST MEETING\n${displayName||'Siz'}\nMehr: ${Math.min(100,Math.round(score/maxScore*100))}%\nJavoblar: ${answers.length}`;try{await navigator.clipboard.writeText(txt);notify('Memory Card nusxalandi 📋')}catch(e){notify('Nusxalash brauzer tomonidan bloklandi')} });
+addTap(document.getElementById('copyMemory'),async()=>{const txt=`FIRST MEETING\n${displayName||'Siz'}\nMehr: ${Math.min(100,Math.round(score/maxScore*100))}%\nJavoblar: ${answers.length}`;try{await navigator.clipboard.writeText(txt);notify('Memory Card nusxalandi 📋')}catch(e){notify('Nusxalash brauzer tomonidan bloklandi')} });
 
 function renderAdmin(data){
   const entries=Object.entries(data||{}).sort((a,b)=>(b[1].lastUpdatedAt||0)-(a[1].lastUpdatedAt||0));
@@ -566,7 +582,7 @@ function launchAdmin(){
   window.__fb.onValue(window.__fb.ref(db,'loveSessions'),snap=>renderAdmin(snap.val()));
 }
 if(new URLSearchParams(location.search).get('admin')==='1') launchAdmin();
-document.getElementById('again').onclick=()=>location.reload();
+addTap(document.getElementById('again'),()=>location.reload());
 ['💗','✨','🌸','💕','💫','🦋'].forEach((e,i)=>{for(let j=0;j<3;j++){const f=document.createElement('div');f.className='float';f.textContent=e;f.style.left=(i*17+Math.random()*8)+'vw';f.style.animationDelay=(-Math.random()*9)+'s';f.style.animationDuration=(7+Math.random()*7)+'s';f.style.fontSize=(14+Math.random()*16)+'px';document.getElementById('floats').appendChild(f)}});
 updateHeader();
 </script>
